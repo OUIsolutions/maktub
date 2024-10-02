@@ -1,16 +1,16 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../imports/imports.structC.h"
+#include "../imports/imports.consts.h"
 //silver_chain_scope_end
 
 
 MakTub * newMakTub(const char *seed);
 
-long  Maktub_generate_num(MakTub *self,unsigned  int min, unsigned int  max);
+void private_MakTub_start(MakTub *self);
+
+int  Maktub_generate_num(MakTub *self,  int min, unsigned int  max);
 
 void * Maktub_choice(MakTub *self,void **elements,int elements_size);
 
 char * MakTub_token(MakTub *self ,int token_size,const char *valid_chars);
-
-

@@ -5,8 +5,8 @@
 //silver_chain_scope_end
 
 typedef struct privateMakTubeAction{
-    
-    void (*generation_callback)(MakTub *item)[10];
+
+    void (*generation_callback)(MakTub *item);
     double chances;
-    
+
 }privateMakTubeAction;
