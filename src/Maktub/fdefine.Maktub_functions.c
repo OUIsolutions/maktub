@@ -70,7 +70,7 @@ int  Maktub_generate_num(MakTub *self,  int min,  int  max){
 
 void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size){
     int chose = Maktub_generate_num(self, 0,elements_size-1);
-    return elements[chose];
+   return elements[chose];
 }
 
 
