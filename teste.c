@@ -7,7 +7,12 @@ int main(){
         printf("%d\n",Maktub_generate_num(test, 0, 100));
     }
     */
+    MaktubGenerationNum * m = MakTub_newGenerationNum(test);
+    MaktubGenerationNum_add_probability(m, 0.5);
+    MaktubGenerationNum_add_probability(m, 0.5);
+
     for(int i = 0; i < 100; i++){
-        printf("%s\n",MakTub_generate_token(test,10,"ABCDEFGHJIJLKMN1234567890"));
+
+        printf("%d\n",Maktub_generate_num(test, 20, 100));
     }
 }

@@ -10,8 +10,8 @@ typedef struct privateMakTubeAction{
 
 
 typedef struct MakTubeGeneration{
- 
-    privateMakTubeAction actions[MAKTUB_GENERATION_PLOTAGE_AREA];
+
+    privateMakTubeAction actions[MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA];
     int size_actions;
-    
+
 }MakTubeGeneration;

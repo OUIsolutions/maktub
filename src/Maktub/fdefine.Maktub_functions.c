@@ -18,6 +18,9 @@ MakTub * newMakTub(const char *seed){
     self->start_multiplier =MAKTUB_DEFAULT_START_MULTIPLYER;
     return self;
 }
+MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self){
+    return private_new_MaktubGenerationNum(self);
+}
 
 void private_MakTub_start(MakTub *self){
     if(self->started){
@@ -31,26 +34,34 @@ void private_MakTub_start(MakTub *self){
     self->num_seed *= self->start_multiplier;
 }
 
-int  Maktub_generate_num(MakTub *self,  int min, unsigned int  max){
+int  Maktub_generate_num(MakTub *self,  int min,  int  max){
+
+
     self->generation+=1;
     private_MakTub_start(self);
 
     self->num_seed += (self->generation >> (self->num_factor-1)) * self->num_multiplier;
     srand((unsigned int)self->num_seed);
-    if(min < 0){
-        max += (min *-1);
+
+    if(min>=0){
+        max -=min;
     }
+    if(min <0){
+        max+=(min *-1);
+    }
+
     int result = rand();
     result = result % max;
-    if(min < 0){
-        result-=min;
-    }
+    result+=min;
+
+
+
     return result;
 }
 
 
 void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size){
-    int chose = Maktub_generate_num(self, 0,elements_size-1);
+    int chose = Maktub_generate_num(self, 0,elements_size);
     return elements[chose];
 }
 

@@ -6,9 +6,9 @@
 
 
 
-typedef struct MaktubGenerationNums{
+typedef struct MaktubGenerationNum{
     void *Maktub_obj;
-    double chances[MAKTUB_GENERATION_PLOTAGE_AREA];
+    double chances[MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA];
     int size_chanches;
 
 }MaktubGenerationNum;

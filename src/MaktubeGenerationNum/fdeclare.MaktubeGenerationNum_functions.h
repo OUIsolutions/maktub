@@ -8,7 +8,10 @@
 
 MaktubGenerationNum * private_new_MaktubGenerationNum(MakTub *Maktub_obj);
 
-int MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance);
+
+void MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance);
+
+int  MaktubGenerationNum_perform(MaktubGenerationNum *self);
+
 
 void private_MaktubGenerationNum_free(MaktubGenerationNum *self);
-
