@@ -1,14 +1,20 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../imports/imports.structB.h"
+#include "../imports/imports.structC.h"
 //silver_chain_scope_end
 
 
-MakTubeGeneration * private_newMakTubeGeneration(MakTub *Maktube_obj);
+MakTubeGenerationAction * private_newMakTubeGenerationAction(MakTub *Maktube_obj);
 
-void MakTubeGeneration_subscribe_function(MakTubeGeneration *self,double chance, void (*generation_callback)(MakTub *item));
 
-void MakTubeGeneration_perform(MakTub *self);
+void MakTubeGenerationAction_subscribe_function(MakTubeGenerationAction *self,double chance, void (*generation_callback)(MakTub *item));
 
-void private_free_MakTubeGeneration(MakTubeGeneration *self);
+
+void MakTubeGenerationAction_perform(MakTubeGenerationAction *self);
+
+
+MakTubeGenerationAction * MakTubeGenerationAction_sub_generation(MakTubeGenerationAction *self);
+
+
+void private_free_MakTubeGenerationAction(MakTubeGenerationAction *self);

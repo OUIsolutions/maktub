@@ -21,6 +21,9 @@ MakTub * newMakTub(const char *seed){
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self){
     return private_new_MaktubGenerationNum(self);
 }
+MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self){
+    return private_newMakTubeGenerationAction(self);
+}
 
 void private_MakTub_start(MakTub *self){
     if(self->started){
@@ -36,7 +39,7 @@ void private_MakTub_start(MakTub *self){
 
 int  Maktub_generate_num(MakTub *self,  int min,  int  max){
 
-
+    min-=1;
     self->generation+=1;
     private_MakTub_start(self);
 
@@ -51,7 +54,7 @@ int  Maktub_generate_num(MakTub *self,  int min,  int  max){
     }
 
     int result = rand();
-    result = result % max;
+    result = result % max+1;
     result+=min;
 
 

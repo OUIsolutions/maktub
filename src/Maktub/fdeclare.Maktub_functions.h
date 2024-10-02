@@ -1,7 +1,7 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../imports/imports.structB.h"
+#include "../imports/imports.structC.h"
 //silver_chain_scope_end
 
 
@@ -12,6 +12,8 @@ void private_MakTub_start(MakTub *self);
 int  Maktub_generate_num(MakTub *self,  int min,  int  max);
 
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self);
+
+MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self);
 
 void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size);
 

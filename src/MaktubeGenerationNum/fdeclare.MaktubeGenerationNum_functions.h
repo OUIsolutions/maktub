@@ -1,7 +1,7 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../imports/imports.structB.h"
+#include "../imports/imports.structC.h"
 //silver_chain_scope_end
 
 
@@ -13,5 +13,6 @@ int MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance)
 
 int  MaktubGenerationNum_perform(MaktubGenerationNum *self);
 
+double  MaktubGenerationNum_get_probability_num(MaktubGenerationNum *self,int index);
 
 void private_MaktubGenerationNum_free(MaktubGenerationNum *self);

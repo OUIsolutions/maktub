@@ -8,7 +8,7 @@
 
 MaktubGenerationNum * private_new_MaktubGenerationNum(MakTub *Maktub_obj){
     MaktubGenerationNum *self = (MaktubGenerationNum*)malloc(sizeof(MaktubGenerationNum));
-    self->Maktub_obj = Maktub_obj;
+    self->root_obj = Maktub_obj;
     return self;
 }
 
@@ -20,9 +20,7 @@ int MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance)
     self->size_chanches+=1;
     return 0;
 }
-
-int  MaktubGenerationNum_perform(MaktubGenerationNum *self){
-
+void private_MaktubGenerationNum_generate_prediction(MaktubGenerationNum *self){
     double total_sum =0;
     int total_skkiped  = 0;
     for(int i =0; i<self->size_chanches;i++){
@@ -43,8 +41,18 @@ int  MaktubGenerationNum_perform(MaktubGenerationNum *self){
             self->chances[i] = division;
         }
     }
+}
+double  MaktubGenerationNum_get_probability_num(MaktubGenerationNum *self,int index){
+    if(index > self->size_chanches){
+        return -1;
+    }
+    return self->chances[index];
+}
 
-    int chosed = Maktub_generate_num((MakTub*)self->Maktub_obj, 1, MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA);
+int  MaktubGenerationNum_perform(MaktubGenerationNum *self){
+    private_MaktubGenerationNum_generate_prediction(self);
+
+    int chosed = Maktub_generate_num(self->root_obj, 1, MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA);
     for(int i = 0; i < self->size_chanches;i++){
         int current_chance = (self->chances[i] * MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA)* (i+1);
 
