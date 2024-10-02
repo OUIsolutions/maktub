@@ -19,10 +19,15 @@ MakTub * newMakTub(const char *seed){
     return self;
 }
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self){
-    return private_new_MaktubGenerationNum(self);
+    MaktubGenerationNum *obj= private_new_MaktubGenerationNum(self);
+    UniversalGarbage_add(self->garbage,private_MaktubGenerationNum_free,obj);
+    return obj;
+
 }
 MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self){
-    return private_newMakTubeGenerationAction(self);
+    MakTubeGenerationAction *obj = private_newMakTubeGenerationAction(self);
+    UniversalGarbage_add(self->garbage,private_free_MakTubeGenerationAction,obj);
+    return obj;
 }
 
 void private_MakTub_start(MakTub *self){
@@ -81,4 +86,8 @@ char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_char
         target_token[i]  = valid_chars[chosen_index];
     }
     return target_token;
+}
+void MakTub_free(MakTub *self){
+    UniversalGarbage_free(self->garbage);
+    free(self);
 }

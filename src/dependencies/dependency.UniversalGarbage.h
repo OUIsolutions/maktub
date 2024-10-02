@@ -308,6 +308,8 @@ bool  rawUniversalGarbage_add(UniversalGarbage *self,  void (*dealocator_callbac
     }
 
 
+
+
     self->elements = (privateUniversalGarbageElement**)realloc(
             self->elements,
             (self->elements_size + 1) * sizeof(privateUniversalGarbageElement*)
@@ -317,7 +319,9 @@ bool  rawUniversalGarbage_add(UniversalGarbage *self,  void (*dealocator_callbac
 
     self->elements[self->elements_size] = private_newUniversalGarbageSimpleElement(dealocator_callback, pointer);
     self->elements_size+=1;
+
     return  true;
+
 }
 
 

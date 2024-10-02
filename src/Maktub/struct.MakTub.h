@@ -18,4 +18,9 @@ typedef struct MakTub
 
    int generation;
 
+   void *static_args;
+   void *current_args;
+   int index;
+   double probability;
+
 }MakTub;
