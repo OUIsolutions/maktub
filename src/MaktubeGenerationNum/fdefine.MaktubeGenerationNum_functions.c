@@ -12,19 +12,41 @@ MaktubGenerationNum * private_new_MaktubGenerationNum(MakTub *Maktub_obj){
     return self;
 }
 
-void MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance){
+int MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance){
     if(self->size_chanches >=  MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA){
-        return ;
+        return MAKTUB_MAX_CHANCES;
     }
     self->chances[self->size_chanches] = chance;
     self->size_chanches+=1;
+    return 0;
 }
 
 int  MaktubGenerationNum_perform(MaktubGenerationNum *self){
 
+    double total_sum =0;
+    int total_skkiped  = 0;
+    for(int i =0; i<self->size_chanches;i++){
+        if(self->chances[i] == -1){
+            total_skkiped+=1;
+            continue;
+        }
+        total_sum+=self->chances[i];
+    }
+    double rest = 1 - total_sum;
+    double division = 0;
+    if(rest > 0  && total_skkiped >0){
+         division = (rest /total_skkiped);
+    }
+
+    for(int i =0; i<self->size_chanches;i++){
+        if(self->chances[i] == -1){
+            self->chances[i] = division;
+        }
+    }
+
     int chosed = Maktub_generate_num((MakTub*)self->Maktub_obj, 1, MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA);
     for(int i = 0; i < self->size_chanches;i++){
-        int current_chance = (self->chances[i] * MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA) * (i+1);
+        int current_chance = (self->chances[i] * MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA)* (i+1);
 
         if(chosed <= current_chance){
             return i;

@@ -8,11 +8,18 @@ int main(){
     }
     */
     MaktubGenerationNum * m = MakTub_newGenerationNum(test);
-    MaktubGenerationNum_add_probability(m, 0.1);
-    MaktubGenerationNum_add_probability(m, 0.9);
+    MaktubGenerationNum_add_probability(m, 0.25);
+    MaktubGenerationNum_add_probability(m, 0.25);
+    MaktubGenerationNum_add_probability(m, -1);
 
-    for(int i = 0; i < 100; i++){
+    int index = MaktubGenerationNum_perform(m);
+
+    int index_count[3] = {0};
+    for(int i = 0; i < 10000; i++){
         int index = MaktubGenerationNum_perform(m);
-        printf("%d\n",index);
+        index_count[index]+=1;
+    }
+    for(int i=0;i < sizeof(index_count)/sizeof(int);i++){
+        printf("%d= %d\n",i,index_count[i]);
     }
 }
