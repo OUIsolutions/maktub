@@ -8,11 +8,11 @@ int main(){
     }
     */
     MaktubGenerationNum * m = MakTub_newGenerationNum(test);
-    MaktubGenerationNum_add_probability(m, 0.5);
-    MaktubGenerationNum_add_probability(m, 0.5);
+    MaktubGenerationNum_add_probability(m, 0.1);
+    MaktubGenerationNum_add_probability(m, 0.9);
 
     for(int i = 0; i < 100; i++){
-
-        printf("%d\n",Maktub_generate_num(test, 20, 100));
+        int index = MaktubGenerationNum_perform(m);
+        printf("%d\n",index);
     }
 }

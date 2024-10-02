@@ -17,14 +17,14 @@ void MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance
         return ;
     }
     self->chances[self->size_chanches] = chance;
+    self->size_chanches+=1;
 }
 
 int  MaktubGenerationNum_perform(MaktubGenerationNum *self){
 
     int chosed = Maktub_generate_num((MakTub*)self->Maktub_obj, 1, MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA);
-    printf("%d\n",chosed);
     for(int i = 0; i < self->size_chanches;i++){
-        int current_chance = (self->chances[i] * MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA) * i+1;
+        int current_chance = (self->chances[i] * MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA) * (i+1);
 
         if(chosed <= current_chance){
             return i;
