@@ -24,9 +24,7 @@ local function main()
     end
     dtw.write_file(RELEASE_FOLDER .. "/" .. OUTPUT_SINGLE_FILE, amalgamation_result)
 
-    local declaration_amalgamation = cache.new_element("declaration_amalgamation", function()
-        return Generate_amalgamation_recursive(DECLARATION_POINT)
-    end).add_dependencie(src_sha).perform()
+
 end
 
 main()

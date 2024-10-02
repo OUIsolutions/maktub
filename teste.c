@@ -1,5 +1,4 @@
 #include "src/one.c"
-#include <stdbool.h>
 MakTubNameskace mak;
 
 void joga_minecraft(MakTub *root_obj){
