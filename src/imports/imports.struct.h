@@ -1,4 +1,4 @@
-#include "imports.native.h"
+#include "imports.dependency.h"
 #ifndef silverchain_struct
 #define silverchain_struct
 #include "../Maktub/struct.MakTub.h"
