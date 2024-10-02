@@ -1,7 +1,7 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../imports/imports.structC.h"
+#include "../imports/imports.structD.h"
 //silver_chain_scope_end
 
 
