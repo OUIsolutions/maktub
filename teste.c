@@ -1,6 +1,7 @@
 #include "src/one.c"
 #include "extra/doTheWorld.h"
 #include "extra/CHashManipulator.h"
+#include <cstring>
 MakTubNameskace mak;
 CHashNamespace chash;
 DtwNamespace dtw;
@@ -13,12 +14,12 @@ typedef struct Props{
 }Props;
 
 void seta_como_nil(MakTub *args){
-    Props  *props = (Props*)args->static_args;
+    Props  *props = (Props*)args->current_args;
     chash.object.set_any(props->obj,props->chave,chash.newNULL());
 }
 
 void seta_em_lista(MakTub *args){
-    Props  *props = (Props*)args->static_args;
+    Props  *props = (Props*)args->current_args;
     char * escolhido = mak.generate_choice(args,(void**)props->lista,props->size);
     chash.object.set_any(props->obj,props->chave,chash.newString(escolhido));
 }
@@ -53,15 +54,15 @@ void cria_json(MakTub *maktube_obj){
        chash.object.set_long( inicial,"idade",sorteio);
    }
 
-
    char *dumped = chash.dump_to_json_string(inicial);
    UniversalGarbage_add_simple(lixo,dumped);
 
-   char *caminho = dtw.concat_path("jsons_teses",maktube_obj->seed);
-   UniversalGarbage_add_simple(lixo, caminho);
+   DtwPath *caminho = dtw.path.newPath(maktube_obj->seed);
+   UniversalGarbage_add(lixo,dtw.path.free, caminho);
 
-   printf("gerado: %s\n",caminho);
-   dtw.write_string_file_content(caminho,dumped);
+   dtw.path.set_extension(caminho,".json");
+   dtw.path.set_dir(caminho,"jsons_teses");
+   dtw.write_string_file_content(dtw.path.get_path(caminho),dumped);
 
 
    UniversalGarbage_free(lixo);
