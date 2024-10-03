@@ -4,7 +4,7 @@
 It also defines the probability percentage of executing something with: "subscribe_function"
 */
 
-#include "../../../MakTub.h"
+#include "MakTub.h"
 
 #define FIRST_PROBABILITY 0.2
 #define SECOND_PROBABILITY 0.4

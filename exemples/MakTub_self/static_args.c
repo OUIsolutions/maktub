@@ -3,7 +3,7 @@
 self->static_args It serves to put arguments in itself.
 */
 
-#include "../../../MakTub.h"
+#include "MakTub.h"
 
 typedef struct props{
   int age;

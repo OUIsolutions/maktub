@@ -3,7 +3,7 @@
 self->seed is used to know which seed it is.
 */
 
-#include "../../../MakTub.h"
+#include "MakTub.h"
 
 MakTubNameskace mak;
 

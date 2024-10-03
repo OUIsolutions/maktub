@@ -2,7 +2,7 @@
 self->started serves to know if the MakTub structure was used or if you prefer to start it.
 */
 
-#include "../../../MakTub.h"
+#include "MakTub.h"
 
 MakTubNameskace mak;
 

@@ -4,7 +4,7 @@
 With MakTup you can generate tokens through seeds, choosing the number of characters and which characters are accepted.
 */
 
-#include "../../MakTub.h"
+#include "MakTub.h"
 
 #define ACCEPTED_CARACTERS "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz !@#$%*()"
 #define NUMBER_OF_CARACTERS 12
