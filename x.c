@@ -20,15 +20,17 @@ void imprimi_nada(MakTub *main_obj){
 }
 int main(){
     mak = newMakTubNameskace();
-    
-    for(int i = 0; i < 100 ; i++){
-        printf("\n\n");
-        MakTub *mak_ex = mak.newMakTub("ta3dd24sdddedddeee%d",i);
+        for(int i=1 ; i < 10; i++){
+        printf("iteracao: %d\n\n",i);
+        MakTub *mak_ex = mak.newMakTub("dddssss");
         printf("Formulário n: \n");
+        
        MakTubeGenerationAction *actions = mak.newGenerationAction(mak_ex);
+        
        mak.actions.subscribe_function(actions,0.33,imprime_nome);
+       
        mak.actions.subscribe_function(actions, 0.33,imprime_nome_new);
-
+    
         printf("idade: %d\n",mak.generate_num(mak_ex,0,120));
         mak.actions.perform(actions);
 
@@ -37,7 +39,9 @@ int main(){
         printf("pele: %s\n", escolhido);
 
         mak.free(mak_ex);
-    }
+    
+       }
+
   
 }
 

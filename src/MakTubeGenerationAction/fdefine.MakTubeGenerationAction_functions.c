@@ -18,13 +18,18 @@ void MakTubeGenerationAction_subscribe_function(
     double chance,
     void (*generation_callback)(MakTub *item)
 ){
-   MaktubGenerationNum_add_probability(self->nums,chance);
+    MaktubGenerationNum_add_probability(self->nums,chance);
     self->actions[self->size_actions].generation_callback =  (void (*)(void *))generation_callback;
     self->size_actions+=1;
 }
 
 void MakTubeGenerationAction_perform(MakTubeGenerationAction *self){
      self->root_obj->index = MaktubGenerationNum_perform(self->nums);
+
+     if(self->root_obj->index == -1){
+        return;
+     }
+
      void * old_args = self->root_obj->current_args;
      self->root_obj->probability = MaktubGenerationNum_get_probability_num(self->nums,self->root_obj->index);
      self->actions[self->root_obj->index].generation_callback((void*)self->root_obj);
