@@ -8,7 +8,11 @@
 
 MakTub * newMakTub(const char *seed,...);
 
-void private_MakTub_start(MakTub *self);
+void private_MakTub_generate_num_seed(MakTub *self);
+
+void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args);
+
+void MakTub_set_seed(MakTub *self,const char *seed,...);
 
 int  Maktub_generate_num(MakTub *self,  int min,  int  max);
 

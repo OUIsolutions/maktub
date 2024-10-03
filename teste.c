@@ -46,8 +46,8 @@ void cria_json(int modificador){
    mak.actions.perform(nome);
 
    MaktubGenerationNum *idade = mak.newGenerationNum(test);
-   mak.num.add_probability(idade,0.3);
-   mak.num.add_probability(idade,0.7);
+   mak.num.add_probability(idade,0.1);
+   mak.num.add_probability(idade,0.9);
 
    //retorna um index
    if(mak.num.perform(idade)){
