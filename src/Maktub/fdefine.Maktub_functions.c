@@ -2,6 +2,7 @@
 //silver_chain_scope_start
 //mannaged by silver chain
 #include "../imports/imports.fdeclare.h"
+#include <string.h>
 //silver_chain_scope_end
 
 
@@ -22,8 +23,11 @@ MakTub * newMakTub(const char *seed,...){
     return self;
 }
 
+
+
 void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
     self->started = false;
+
     va_list args_copy;
     va_copy(args_copy, args);
     int required_size = vsnprintf(NULL,0, seed_fmt, args_copy);
@@ -33,12 +37,31 @@ void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list
     va_end(args_copy);
 }
 
+MaktubGenerationNum * MakTub_set_generation(MakTub *self,int generation){
+    self->generation =generation;
+}
+
 void MakTub_set_seed(MakTub *self,const char *seed,...){
+    self->started = false;
     va_list args;
     va_start(args, seed);
     private_Maktube_set_seed_by_vaarg(self,seed,args);
     va_end(args);
 }
+
+void MakTub_aply_seed_modification(MakTub *self,int total_chars,const char *valid_chars){
+    private_MakTub_generate_num_seed(self);
+    int seed_size = strlen(self->seed);
+    int valid_chars_size  = strlen(valid_chars);
+    for(int i =0; i < total_chars; i++){
+        int chose_index = Maktub_generate_num(self, 0, seed_size-1);
+        int chose_index_to_replace = Maktub_generate_num(self,0,valid_chars_size-1);
+        char char_to_replace = valid_chars[chose_index_to_replace];
+        self->seed[chose_index] = char_to_replace;
+    }
+    self->started = false;
+}
+
 
 void private_MakTub_generate_num_seed(MakTub *self){
     if(self->started){
@@ -46,6 +69,8 @@ void private_MakTub_generate_num_seed(MakTub *self){
     }
     self->started = true;
     self->num_seed = 0;
+    self->generation = 0;
+
     unsigned long str_size  = strlen(self->seed);
 
     for(unsigned long i = 0; i < str_size;i++ ){

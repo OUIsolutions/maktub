@@ -24,10 +24,8 @@ void seta_em_lista(MakTub *args){
 }
 
 
-void cria_json(int modificador){
+void cria_json(MakTub *maktube_obj){
    UniversalGarbage *lixo = newUniversalGarbage();
-   MakTub * test = mak.newMakTub("podeserissoaqui%d.json",modificador);
-   UniversalGarbage_add(lixo,mak.free,test);
    CHashObject *inicial = chash.object.newObjectEmpty();
    UniversalGarbage_add(lixo,chash.free,inicial);
 
@@ -38,20 +36,20 @@ void cria_json(int modificador){
    const char *lista[] = {"samuel","danilo","big samuel"};
    props.lista = lista;
    props.size  = sizeof(lista) / sizeof(char*);
-   test->static_args = (void*)&props;
+   maktube_obj->current_args = (void*)&props;
 
-   MakTubeGenerationAction * nome = mak.newGenerationAction(test);
+   MakTubeGenerationAction * nome = mak.newGenerationAction(maktube_obj);
    mak.actions.subscribe_function(nome,0.10,seta_como_nil);
    mak.actions.subscribe_function(nome,0.80,seta_em_lista);
    mak.actions.perform(nome);
 
-   MaktubGenerationNum *idade = mak.newGenerationNum(test);
-   mak.num.add_probability(idade,0.1);
-   mak.num.add_probability(idade,0.9);
+   MaktubGenerationNum *idade = mak.newGenerationNum(maktube_obj);
+   mak.num.add_probability(idade,0.3);
+   mak.num.add_probability(idade,0.7);
 
    //retorna um index
    if(mak.num.perform(idade)){
-       int sorteio = mak.generate_num(test,0,120);
+       int sorteio = mak.generate_num(maktube_obj,0,120);
        chash.object.set_long( inicial,"idade",sorteio);
    }
 
@@ -59,7 +57,7 @@ void cria_json(int modificador){
    char *dumped = chash.dump_to_json_string(inicial);
    UniversalGarbage_add_simple(lixo,dumped);
 
-   char *caminho = dtw.concat_path("jsons_teses",test->seed);
+   char *caminho = dtw.concat_path("jsons_teses",maktube_obj->seed);
    UniversalGarbage_add_simple(lixo, caminho);
 
    printf("gerado: %s\n",caminho);
@@ -76,7 +74,8 @@ int main(){
    dtw = newDtwNamespace();
    dtw.remove_any("jsons_teses");
    for(int i = 0; i < 100; i++){
-      cria_json(i);
+       MakTub *maktube_obj = mak.newMakTub("teste qualquer seed");
+       cria_json(maktube_obj);
   }
   return 0;
 
