@@ -12,59 +12,71 @@ MakTub * newMakTub(const char *seed,...){
 
     va_list args;
     va_start(args, seed);
-
-    va_list args_copy;
-    va_copy(args_copy, args);
-    int required_size = vsnprintf(NULL,0, seed, args_copy);
-    va_end(args_copy);
-
-    self->seed = (char*)malloc((required_size+1)* sizeof(char));
-    vsnprintf(self->seed, sizeof(char) * (required_size+1),seed, args);
-   self->seed[required_size] = '\0';
-    
+    private_Maktube_set_seed_by_vaarg(self,seed,args);
     va_end(args);
 
-    
-    self->garbage =newUniversalGarbage();
 
+    self->garbage =newUniversalGarbage();
     self->seed_factor = MAKTUB_DEFAULT_SEED_FACTOR;
-    self->num_factor = MAKTUB_DEFAULT_NUM_FACTOR;
-    self->num_multiplier = MAKTUB_DEFAULT_NUM_MULTIPLYER;
     self->start_multiplier =MAKTUB_DEFAULT_START_MULTIPLYER;
     return self;
 }
+
+void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
+    self->started = false;
+    va_list args_copy;
+    va_copy(args_copy, args);
+    int required_size = vsnprintf(NULL,0, seed_fmt, args_copy);
+    self->seed = (char*)malloc((required_size+1)* sizeof(char));
+    vsnprintf(self->seed, sizeof(char) * (required_size+1),seed_fmt, args);
+    self->seed[required_size] = '\0';
+    va_end(args_copy);
+}
+
+void MakTub_set_seed(MakTub *self,const char *seed,...){
+    va_list args;
+    va_start(args, seed);
+    private_Maktube_set_seed_by_vaarg(self,seed,args);
+    va_end(args);
+}
+
+void private_MakTub_generate_num_seed(MakTub *self){
+    if(self->started){
+        return;
+    }
+    self->started = true;
+    self->num_seed = 0;
+    unsigned long str_size  = strlen(self->seed);
+
+    for(unsigned long i = 0; i < str_size;i++ ){
+        self->num_seed += self->seed[i] << (self->seed_factor-1);
+    }
+
+    self->num_seed *= self->start_multiplier;
+}
+
+
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self){
     MaktubGenerationNum *obj= private_new_MaktubGenerationNum(self);
     UniversalGarbage_add(self->garbage,private_MaktubGenerationNum_free,obj);
     return obj;
-
 }
+
 MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self){
     MakTubeGenerationAction *obj = private_newMakTubeGenerationAction(self);
     UniversalGarbage_add(self->garbage,private_free_MakTubeGenerationAction,obj);
     return obj;
 }
 
-void private_MakTub_start(MakTub *self){
-    if(self->started){
-        return;
-    }
-    self->started = true;
-    unsigned long str_size  = strlen(self->seed);
-    for(unsigned long i = 0; i < str_size;i++ ){
-        self->num_seed += self->seed[i] << (self->seed_factor-1);
-    }
-    self->num_seed *= self->start_multiplier;
-}
+
 
 int  Maktub_generate_num(MakTub *self,  int min,  int  max){
 
     min-=1;
     self->generation+=1;
-    private_MakTub_start(self);
+    private_MakTub_generate_num_seed(self);
+    srand(self->num_seed * self->generation);
 
-    self->num_seed += (self->generation >> (self->num_factor-1)) * self->num_multiplier;
-    srand((unsigned int)self->num_seed);
 
     if(min>=0){
         max -=min;
