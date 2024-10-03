@@ -6,10 +6,25 @@
 
 
 
-MakTub * newMakTub(const char *seed){
-    MakTub * self = (MakTub*)malloc(sizeof(MakTub));
+MakTub * newMakTub(const char *seed,...){
+     MakTub * self = (MakTub*)malloc(sizeof(MakTub));
     *self = (MakTub){0};
-    self->seed = seed;
+
+    va_list args;
+    va_start(args, seed);
+
+    va_list args_copy;
+    va_copy(args_copy, args);
+    int required_size = vsnprintf(NULL,0, seed, args_copy);
+    va_end(args_copy);
+
+    self->seed = (char*)malloc((required_size+1)* sizeof(char));
+    vsnprintf(self->seed, sizeof(char) * (required_size+1),seed, args);
+   self->seed[required_size] = '\0';
+    
+    va_end(args);
+
+    
     self->garbage =newUniversalGarbage();
 
     self->seed_factor = MAKTUB_DEFAULT_SEED_FACTOR;
@@ -89,5 +104,6 @@ char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_char
 }
 void MakTub_free(MakTub *self){
     UniversalGarbage_free(self->garbage);
-    free(self);
+    free(self->seed);
+   free(self);
 }

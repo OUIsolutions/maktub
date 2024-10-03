@@ -6,7 +6,7 @@
 
 
 
-MakTub * newMakTub(const char *seed);
+MakTub * newMakTub(const char *seed,...);
 
 void private_MakTub_start(MakTub *self);
 

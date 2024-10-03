@@ -5,7 +5,7 @@
 //silver_chain_scope_end
 
 typedef struct MakTubNameskace{
-    MakTub * (*newMakTub)(const char *seed);
+    MakTub * (*newMakTub)(const char *seed,...);
     int  (*generate_num)(MakTub *self,  int min,  int  max);
     MaktubGenerationNum * (*newGenerationNum)(MakTub *self);
     MakTubeGenerationAction * (*newGenerationAction)(MakTub *self);

@@ -4,7 +4,9 @@ MakTubNameskace mak;
 
 int main(){
    mak =newMakTubNameskace();
-   MakTub * test = mak.newMakTub("aaa232m3i4dddsss");
+   MakTub * test = mak.newMakTub("aaaddssds232m3i4dddsss");
+
+   
    const char *t[] = {"aaa","aaa","ddd","aaa","aaa"};
     char *escolhido  = mak.generate_choice(test,(void**)t,sizeof(t)/sizeof(char*));
     printf("%s",escolhido);
