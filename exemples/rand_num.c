@@ -1,9 +1,3 @@
-
-
-refereinca aaaia
-
-
-~~~c
 #include "MakTub.h"
 MakTubNameskace mak;
 
@@ -15,8 +9,3 @@ int main(){
     mak.free(obj);
     return 0;
 }
-
-~~~
-
-
-sss

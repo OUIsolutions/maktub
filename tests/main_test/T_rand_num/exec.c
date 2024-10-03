@@ -1,10 +1,4 @@
-
-
-refereinca aaaia
-
-
-~~~c
-#include "MakTub.h"
+#include "../../MakTub.h"
 MakTubNameskace mak;
 
 int main(){
@@ -15,8 +9,3 @@ int main(){
     mak.free(obj);
     return 0;
 }
-
-~~~
-
-
-sss

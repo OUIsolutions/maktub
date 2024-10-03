@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include <stdarg.h>
 
 #endif
 
@@ -446,7 +446,7 @@ void UniversalGarbage_free(UniversalGarbage *self){
 
 typedef struct MakTub
 {
-   const char *seed;
+    char *seed;
    unsigned long long num_seed;
    UniversalGarbage *garbage;
    bool started;
@@ -573,7 +573,7 @@ double  (*get_probability_num)(MaktubGenerationNum *self,int index);
 //silver_chain_scope_end
 
 typedef struct MakTubNameskace{
-    MakTub * (*newMakTub)(const char *seed);
+    MakTub * (*newMakTub)(const char *seed,...);
     int  (*generate_num)(MakTub *self,  int min,  int  max);
     MaktubGenerationNum * (*newGenerationNum)(MakTub *self);
     MakTubeGenerationAction * (*newGenerationAction)(MakTub *self);
@@ -627,7 +627,7 @@ void private_free_MakTubeGenerationAction(MakTubeGenerationAction *self);
 
 
 
-MakTub * newMakTub(const char *seed);
+MakTub * newMakTub(const char *seed,...);
 
 void private_MakTub_start(MakTub *self);
 
@@ -723,13 +723,18 @@ void MakTubeGenerationAction_subscribe_function(
     double chance,
     void (*generation_callback)(MakTub *item)
 ){
-   MaktubGenerationNum_add_probability(self->nums,chance);
+    MaktubGenerationNum_add_probability(self->nums,chance);
     self->actions[self->size_actions].generation_callback =  (void (*)(void *))generation_callback;
     self->size_actions+=1;
 }
 
 void MakTubeGenerationAction_perform(MakTubeGenerationAction *self){
      self->root_obj->index = MaktubGenerationNum_perform(self->nums);
+
+     if(self->root_obj->index == -1){
+        return;
+     }
+
      void * old_args = self->root_obj->current_args;
      self->root_obj->probability = MaktubGenerationNum_get_probability_num(self->nums,self->root_obj->index);
      self->actions[self->root_obj->index].generation_callback((void*)self->root_obj);
@@ -753,10 +758,25 @@ free(self);
 
 
 
-MakTub * newMakTub(const char *seed){
-    MakTub * self = (MakTub*)malloc(sizeof(MakTub));
+MakTub * newMakTub(const char *seed,...){
+     MakTub * self = (MakTub*)malloc(sizeof(MakTub));
     *self = (MakTub){0};
-    self->seed = seed;
+
+    va_list args;
+    va_start(args, seed);
+
+    va_list args_copy;
+    va_copy(args_copy, args);
+    int required_size = vsnprintf(NULL,0, seed, args_copy);
+    va_end(args_copy);
+
+    self->seed = (char*)malloc((required_size+1)* sizeof(char));
+    vsnprintf(self->seed, sizeof(char) * (required_size+1),seed, args);
+   self->seed[required_size] = '\0';
+    
+    va_end(args);
+
+    
     self->garbage =newUniversalGarbage();
 
     self->seed_factor = MAKTUB_DEFAULT_SEED_FACTOR;
@@ -816,15 +836,15 @@ int  Maktub_generate_num(MakTub *self,  int min,  int  max){
 
 
 void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size){
-    int chose = Maktub_generate_num(self, 0,elements_size);
-    return elements[chose];
+    int chose = Maktub_generate_num(self, 0,elements_size-1);
+   return elements[chose];
 }
 
 
 char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_chars){
 
     unsigned long total_chars = strlen(valid_chars);
-    char *target_token = malloc(token_size * sizeof(char));
+    char *target_token = (char*)malloc(token_size * sizeof(char));
     UniversalGarbage_add_simple(self->garbage, target_token);
 
     target_token[token_size]  ='\0';
@@ -836,7 +856,8 @@ char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_char
 }
 void MakTub_free(MakTub *self){
     UniversalGarbage_free(self->garbage);
-    free(self);
+    free(self->seed);
+   free(self);
 }
 
 
@@ -851,6 +872,7 @@ void MakTub_free(MakTub *self){
 
 MaktubGenerationNum * private_new_MaktubGenerationNum(MakTub *Maktub_obj){
     MaktubGenerationNum *self = (MaktubGenerationNum*)malloc(sizeof(MaktubGenerationNum));
+    *self = (MaktubGenerationNum){0};
     self->root_obj = Maktub_obj;
     return self;
 }
@@ -894,7 +916,6 @@ double  MaktubGenerationNum_get_probability_num(MaktubGenerationNum *self,int in
 
 int  MaktubGenerationNum_perform(MaktubGenerationNum *self){
     private_MaktubGenerationNum_generate_prediction(self);
-
     int chosed = Maktub_generate_num(self->root_obj, 1, MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA);
     for(int i = 0; i < self->size_chanches;i++){
         int current_chance = (self->chances[i] * MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA)* (i+1);
