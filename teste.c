@@ -1,7 +1,6 @@
 #include "src/one.c"
 #include "extra/doTheWorld.h"
 #include "extra/CHashManipulator.h"
-#include <cstring>
 MakTubNameskace mak;
 CHashNamespace chash;
 DtwNamespace dtw;
@@ -25,7 +24,7 @@ void seta_em_lista(MakTub *args){
 }
 
 
-void cria_json(MakTub *maktube_obj){
+bool cria_json(MakTub *maktube_obj){
    UniversalGarbage *lixo = newUniversalGarbage();
    CHashObject *inicial = chash.object.newObjectEmpty();
    UniversalGarbage_add(lixo,chash.free,inicial);
@@ -62,22 +61,38 @@ void cria_json(MakTub *maktube_obj){
 
    dtw.path.set_extension(caminho,".json");
    dtw.path.set_dir(caminho,"jsons_teses");
+   if(dtw.entity_type(dtw.path.get_path(caminho))== DTW_FILE_TYPE){
+       UniversalGarbage_free(lixo);
+       return false;
+   }
    dtw.write_string_file_content(dtw.path.get_path(caminho),dumped);
 
 
    UniversalGarbage_free(lixo);
+   return true;
 }
 
 int main(){
+    printf("size %ld\n",sizeof(unsigned long long  ));
 
    mak =newMakTubNameskace();
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    dtw.remove_any("jsons_teses");
-   for(int i = 0; i < 100; i++){
-       MakTub *maktube_obj = mak.newMakTub("teste qualquer seed");
-       cria_json(maktube_obj);
-  }
+   MakTub *maktube_obj = mak.newMakTub("teste qualque seed");
+   int tota_creation = 0;
+   for(int i = 0; i < 10000; i++){
+       int created = cria_json(maktube_obj);
+       mak.aply_seed_modification(maktube_obj,(int[]){0,2,5,6,7,5},6,"0123456789");
+       if(created){
+           tota_creation+=1;
+       }
+       if(tota_creation >300){
+           break;
+       }
+   }
+   printf("%d\n",tota_creation);
+   mak.free(maktube_obj);
   return 0;
 
 }

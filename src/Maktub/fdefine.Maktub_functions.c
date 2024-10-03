@@ -18,8 +18,6 @@ MakTub * newMakTub(const char *seed,...){
 
 
     self->garbage =newUniversalGarbage();
-    self->seed_factor = MAKTUB_DEFAULT_SEED_FACTOR;
-    self->start_multiplier =MAKTUB_DEFAULT_START_MULTIPLYER;
     return self;
 }
 
@@ -49,12 +47,15 @@ void MakTub_set_seed(MakTub *self,const char *seed,...){
     va_end(args);
 }
 
-void MakTub_aply_seed_modification(MakTub *self,int total_chars,const char *valid_chars){
+void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars){
     private_MakTub_generate_num_seed(self);
     int seed_size = strlen(self->seed);
     int valid_chars_size  = strlen(valid_chars);
-    for(int i =0; i < total_chars; i++){
-        int chose_index = Maktub_generate_num(self, 0, seed_size-1);
+    for(int i =0; i < point_sizes; i++){
+        int chose_index = points[i];
+        if(chose_index >=seed_size){
+            continue;;
+        }
         int chose_index_to_replace = Maktub_generate_num(self,0,valid_chars_size-1);
         char char_to_replace = valid_chars[chose_index_to_replace];
         self->seed[chose_index] = char_to_replace;
@@ -68,16 +69,18 @@ void private_MakTub_generate_num_seed(MakTub *self){
         return;
     }
     self->started = true;
-    self->num_seed = 0;
+    self->num_seed = 1;
     self->generation = 0;
 
     unsigned long str_size  = strlen(self->seed);
 
-    for(unsigned long i = 0; i < str_size;i++ ){
-        self->num_seed += self->seed[i] << (self->seed_factor-1);
+    for(unsigned long i = 0; i < str_size-3;i++ ){
+        self->num_seed +=
+            (unsigned char)self->seed[i] *
+            (unsigned char)self->seed[i+1] *
+            (unsigned char)self->seed[i+2];
     }
-
-    self->num_seed *= self->start_multiplier;
+    printf("%lld\n",self->num_seed);
 }
 
 
@@ -100,8 +103,7 @@ int  Maktub_generate_num(MakTub *self,  int min,  int  max){
     min-=1;
     self->generation+=1;
     private_MakTub_generate_num_seed(self);
-    srand(self->num_seed * self->generation);
-
+    srand(self->num_seed *self->generation);
 
     if(min>=0){
         max -=min;

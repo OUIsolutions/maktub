@@ -9,7 +9,7 @@ typedef struct MakTubNameskace{
 
     MaktubGenerationNum * (*set_generation)(MakTub *self,int generation);
     void (*set_seed)(MakTub *self,const char *seed,...);
-    void (*aply_seed_modification)(MakTub *self,int total_chars,const char *valid_chars);
+    void (*aply_seed_modification)(MakTub *self,int points[], int point_sizes,const char *valid_chars);
     MakTub * (*newMakTub)(const char *seed,...);
     int  (*generate_num)(MakTub *self,  int min,  int  max);
     MaktubGenerationNum * (*newGenerationNum)(MakTub *self);
