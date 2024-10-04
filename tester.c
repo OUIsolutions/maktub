@@ -18,38 +18,6 @@ void *blue_print_generator(MakTub *self){
     return sentence;
 }
 
-bool sentence_validator(MakTub *self,void *result){
-    char *formatted = (char*)result;
-    const char *TARGET = "I am Brazilian and i am 27 years old";
-    return strcmp(formatted, TARGET) == 0;
-}
-
-char * find_seed(){
-    MakTub *maktube_obj = mak.newMakTub("eai parsa suave ");
-
-       int POSITION_TO_MODIFY[] = {0,1,2,3};
-       int POSITION_SIZE = sizeof(POSITION_TO_MODIFY)/sizeof(int);
-       int MAX_TRY = 1000;
-       bool found = mak.aply_seed_modification_til_find(
-           maktube_obj,
-           POSITION_TO_MODIFY,
-           POSITION_SIZE,
-           mak.seqs.allpha_nuns,
-           blue_print_generator,
-           sentence_validator,
-           free,
-           MAX_TRY
-       );
-
-       if(found){
-           char *copy = strdup(maktube_obj->seed);
-           mak.free(maktube_obj);
-           return copy;
-       }
-       mak.free(maktube_obj);
-       return NULL;
-}
-
 int main(){
 
     // 8
@@ -57,7 +25,7 @@ int main(){
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    mak = newMakTubNameskace();
-   MakTub *test_obj = mak.newMakTub("aaa");
+   MakTub *test_obj = mak.newMakTub("64W1parsa suave ");
    char *generation = (char*)blue_print_generator(test_obj);
    printf("resultado: %s\n",generation);
    mak.free(test_obj);
