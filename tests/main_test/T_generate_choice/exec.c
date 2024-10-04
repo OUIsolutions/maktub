@@ -7,7 +7,7 @@ It is also possible to generate pseudo randomness in lists.
 
 #include "../../MakTub.h"
 
-MakTubNameskace mak;
+MakTubNamespace mak;
 
 int main(){
   mak = newMakTubNameskace();

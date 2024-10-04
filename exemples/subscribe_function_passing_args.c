@@ -4,7 +4,7 @@
 It also defines the probability percentage of executing something with: "subscribe_function"
 */
 
-#include "../../MakTub.h"
+#include "MakTub.h"
 MakTubNamespace mak;
 
 void print_nil(MakTub *self){

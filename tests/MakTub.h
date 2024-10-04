@@ -395,11 +395,21 @@ void UniversalGarbage_free(UniversalGarbage *self){
 
 
 //silver_chain_scope_end
+#define MAKTUBE_SUFFLE 7
+#define MAKTUBE_FACTOR 1.55
+#define MAKTUBE_ONE_MILLION 1000000
+#define MAKTUBE_ONE_BILION 1000000000
+#define MAKTUB_MAX_SEED MAKTUBE_ONE_BILION
+#define MAKTUB_PI 3141592
 
-#define MAKTUB_DEFAULT_SEED_FACTOR 2
-#define MAKTUB_DEFAULT_NUM_FACTOR 2
-#define MAKTUB_DEFAULT_START_MULTIPLYER 2
-#define MAKTUB_DEFAULT_NUM_MULTIPLYER 2
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
 
 
 #ifndef MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA
@@ -431,6 +441,22 @@ void UniversalGarbage_free(UniversalGarbage *self){
 #endif
 
 
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+#define MAKTUBE_NUMBERS  "0123456789"
+
+#define MAKTUBE_NUMBERS        "0123456789"
+#define MAKTUBE_UPPERCASE      "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define MAKTUBE_LOWERCASE      "abcdefghijklmnopqrstuvwxyz"
+#define MAKTUBE_LOWERCASE_NUM  "abcdefghijklmnopqrstuvwxyz0123456789"
+#define MAKTUBE_UPPERCASE_NUM  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+#define MAKTUBE_ALFHA_NUNS            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+
 #endif
 
 
@@ -447,13 +473,9 @@ void UniversalGarbage_free(UniversalGarbage *self){
 typedef struct MakTub
 {
     char *seed;
-   unsigned long long num_seed;
+   unsigned long long    num_seed;
    UniversalGarbage *garbage;
    bool started;
-   short seed_factor;
-   short num_factor;
-   short num_multiplier;
-   short start_multiplier;
 
    int generation;
 
@@ -572,20 +594,48 @@ double  (*get_probability_num)(MaktubGenerationNum *self,int index);
 
 //silver_chain_scope_end
 
-typedef struct MakTubNameskace{
+typedef struct MakTubSequencialsNamespace {
+    const char *numbers;           // Números
+    const char *uppercase;         // Letras maiúsculas
+    const char *lowercase;         // Letras minúsculas
+    const char *lowercase_num;     // Minúsculas + Números
+    const char *uppercase_num;     // Maiúsculas + Números
+    const char *allpha_nuns;               // Todas as letras + Números
+} MakTubSequencialsNamespace;
+
+
+#endif
+
+
+#ifndef silverchain_structE
+#define silverchain_structE
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+typedef struct MakTubNamespace{
+
+
+    void(*set_generation)(MakTub *self,int generation);
+    void (*set_seed)(MakTub *self,const char *seed,...);
+    void (*aply_seed_modification)(MakTub *self,int points[], int point_sizes,const char *valid_chars);
     MakTub * (*newMakTub)(const char *seed,...);
-    int  (*generate_num)(MakTub *self,  int min,  int  max);
+    long long   (*generate_num)(MakTub *self,  long long  min,  long long   max);
     MaktubGenerationNum * (*newGenerationNum)(MakTub *self);
     MakTubeGenerationAction * (*newGenerationAction)(MakTub *self);
     void * (*generate_choice)(MakTub *self,void **elements,int elements_size);
     char * (*generate_token)(MakTub *self ,int token_size,const char *valid_chars);
     GenerationNumNamespace num;
     GenerationActionNamespace actions;
-    
+    MakTubSequencialsNamespace  seqs;
 
 void (*free)(MakTub *self);
 
-}MakTubNameskace;
+}MakTubNamespace;
+
 
 #endif
 
@@ -629,9 +679,18 @@ void private_free_MakTubeGenerationAction(MakTubeGenerationAction *self);
 
 MakTub * newMakTub(const char *seed,...);
 
-void private_MakTub_start(MakTub *self);
+void MakTub_set_generation(MakTub *self,int generation);
 
-int  Maktub_generate_num(MakTub *self,  int min,  int  max);
+void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars);
+
+
+void private_MakTub_generate_num_seed(MakTub *self);
+
+void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args);
+
+void MakTub_set_seed(MakTub *self,const char *seed,...);
+
+long long   Maktub_generate_num(MakTub *self,  long long  min, long long   max);
 
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self);
 
@@ -674,6 +733,21 @@ void private_MaktubGenerationNum_free(MaktubGenerationNum *self);
 //silver_chain_scope_end
 
 
+long long MakTube_generate_random_num_based_on_seed(
+    unsigned long long  seed,
+    long long min,
+    long long max
+);
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+
 GenerationActionNamespace newGenerationActionNamespace();
 
 
@@ -695,7 +769,19 @@ GenerationNumNamespace newGenerationNumNamespace();
 
 //silver_chain_scope_end
 
-MakTubNameskace newMakTubNameskace();
+MakTubNamespace newMakTubNameskace();
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+
+MakTubSequencialsNamespace newMakTubSequencialsNamespace();
+
 
 #endif
 
@@ -764,74 +850,104 @@ MakTub * newMakTub(const char *seed,...){
 
     va_list args;
     va_start(args, seed);
+    private_Maktube_set_seed_by_vaarg(self,seed,args);
+    va_end(args);
+
+
+    self->garbage =newUniversalGarbage();
+    return self;
+}
+
+
+
+void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
+    self->started = false;
 
     va_list args_copy;
     va_copy(args_copy, args);
-    int required_size = vsnprintf(NULL,0, seed, args_copy);
-    va_end(args_copy);
-
+    int required_size = vsnprintf(NULL,0, seed_fmt, args_copy);
     self->seed = (char*)malloc((required_size+1)* sizeof(char));
-    vsnprintf(self->seed, sizeof(char) * (required_size+1),seed, args);
-   self->seed[required_size] = '\0';
-    
-    va_end(args);
-
-    
-    self->garbage =newUniversalGarbage();
-
-    self->seed_factor = MAKTUB_DEFAULT_SEED_FACTOR;
-    self->num_factor = MAKTUB_DEFAULT_NUM_FACTOR;
-    self->num_multiplier = MAKTUB_DEFAULT_NUM_MULTIPLYER;
-    self->start_multiplier =MAKTUB_DEFAULT_START_MULTIPLYER;
-    return self;
+    vsnprintf(self->seed, sizeof(char) * (required_size+1),seed_fmt, args);
+    self->seed[required_size] = '\0';
+    va_end(args_copy);
 }
+void  MakTub_set_generation(MakTub *self,int generation){
+    self->generation =generation;
+}
+
+void MakTub_set_seed(MakTub *self,const char *seed,...){
+    self->started = false;
+    va_list args;
+    va_start(args, seed);
+    private_Maktube_set_seed_by_vaarg(self,seed,args);
+    va_end(args);
+}
+
+void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars){
+    private_MakTub_generate_num_seed(self);
+    int seed_size = strlen(self->seed);
+    int valid_chars_size  = strlen(valid_chars);
+    for(int i =0; i < point_sizes; i++){
+        int chose_index = points[i];
+        if(chose_index >=seed_size){
+            continue;;
+        }
+        int chose_index_to_replace = Maktub_generate_num(self,0,valid_chars_size-1);
+        char char_to_replace = valid_chars[chose_index_to_replace];
+        self->seed[chose_index] = char_to_replace;
+    }
+    self->started = false;
+}
+
+
+void private_MakTub_generate_num_seed(MakTub *self){
+    if(self->started){
+        return;
+    }
+    self->started = true;
+    self->num_seed = 1;
+    self->generation = 0;
+
+    unsigned long str_size  = strlen(self->seed);
+
+    for(unsigned long i = 0; i < str_size;i++ ){
+        self->num_seed = MakTube_generate_random_num_based_on_seed(
+            (self->num_seed + (unsigned int)self->seed[i]+i),
+            MAKTUBE_ONE_MILLION * 10,
+            MAKTUBE_ONE_BILION
+        );
+    }
+
+
+
+
+   // printf("%lld\n",self->num_seed);
+}
+
+
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self){
     MaktubGenerationNum *obj= private_new_MaktubGenerationNum(self);
     UniversalGarbage_add(self->garbage,private_MaktubGenerationNum_free,obj);
     return obj;
-
 }
+
 MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self){
     MakTubeGenerationAction *obj = private_newMakTubeGenerationAction(self);
     UniversalGarbage_add(self->garbage,private_free_MakTubeGenerationAction,obj);
     return obj;
 }
 
-void private_MakTub_start(MakTub *self){
-    if(self->started){
-        return;
-    }
-    self->started = true;
-    unsigned long str_size  = strlen(self->seed);
-    for(unsigned long i = 0; i < str_size;i++ ){
-        self->num_seed += self->seed[i] << (self->seed_factor-1);
-    }
-    self->num_seed *= self->start_multiplier;
-}
 
-int  Maktub_generate_num(MakTub *self,  int min,  int  max){
 
-    min-=1;
+long long   Maktub_generate_num(MakTub *self,  long long  min, long long   max){
     self->generation+=1;
-    private_MakTub_start(self);
-
-    self->num_seed += (self->generation >> (self->num_factor-1)) * self->num_multiplier;
-    srand((unsigned int)self->num_seed);
-
-    if(min>=0){
-        max -=min;
-    }
-    if(min <0){
-        max+=(min *-1);
-    }
-
-    int result = rand();
-    result = result % max+1;
-    result+=min;
-
-
-
-    return result;
+    private_MakTub_generate_num_seed(self);
+    unsigned long long  current_seed = self->num_seed + self->generation;
+    return MakTube_generate_random_num_based_on_seed(
+         current_seed,
+         min,
+         max
+    );
 }
 
 
@@ -844,7 +960,7 @@ void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size){
 char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_chars){
 
     unsigned long total_chars = strlen(valid_chars);
-    char *target_token = (char*)malloc(token_size * sizeof(char));
+    char *target_token = (char*)malloc((token_size+2) * sizeof(char));
     UniversalGarbage_add_simple(self->garbage, target_token);
 
     target_token[token_size]  ='\0';
@@ -940,6 +1056,41 @@ void private_MaktubGenerationNum_free(MaktubGenerationNum *self){
 
 //silver_chain_scope_end
 
+long long MakTube_generate_random_num_based_on_seed(
+    unsigned long long  seed,
+    long long min,
+    long long max
+){
+    /*
+    srand(seed);
+    unsigned int result = rand();
+    */
+
+    unsigned long long result = seed + MAKTUB_PI;
+
+    for(int i = 0; i < MAKTUBE_SUFFLE; i++){
+        while (result < MAKTUB_MAX_SEED){
+            result *= MAKTUBE_FACTOR;
+            result +=i;
+        }
+        result = result % MAKTUB_MAX_SEED;
+    }
+
+    max+=1;
+    max -= min;
+    result = result % max;
+    result+=min;
+    return  result;
+}
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
 
 GenerationActionNamespace newGenerationActionNamespace(){
     GenerationActionNamespace self = {0};
@@ -974,10 +1125,13 @@ GenerationNumNamespace newGenerationNumNamespace(){
 
 //silver_chain_scope_end
 
-MakTubNameskace newMakTubNameskace(){
-    MakTubNameskace self = {0};
-    
+MakTubNamespace newMakTubNameskace(){
+    MakTubNamespace self = {0};
+
     self.newMakTub=  newMakTub;
+    self.set_generation = MakTub_set_generation;
+    self.set_seed = MakTub_set_seed;
+    self.aply_seed_modification = MakTub_aply_seed_modification;
     self.generate_num = Maktub_generate_num;
     self.newGenerationNum = MakTub_newGenerationNum;
     self.newGenerationAction = MakTub_newGenerationAction;
@@ -986,9 +1140,29 @@ MakTubNameskace newMakTubNameskace(){
     self.free =  MakTub_free;
     self.num =newGenerationNumNamespace();
     self.actions = newGenerationActionNamespace();
+    self.seqs = newMakTubSequencialsNamespace();
     return self;
 
 }
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+MakTubSequencialsNamespace newMakTubSequencialsNamespace() {
+    MakTubSequencialsNamespace self = {0};
+    self.numbers = MAKTUBE_NUMBERS;
+    self.uppercase = MAKTUBE_UPPERCASE;
+    self.lowercase = MAKTUBE_LOWERCASE;
+    self.lowercase_num = MAKTUBE_LOWERCASE_NUM;
+    self.uppercase_num = MAKTUBE_UPPERCASE_NUM;
+    self.allpha_nuns = MAKTUBE_ALFHA_NUNS;
+    return self;
+}
+
 
 #endif
 

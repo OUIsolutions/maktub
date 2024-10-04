@@ -1,6 +1,6 @@
 
 
-#include "../../MakTub.h"
+#include "MakTub.h"
 MakTubNamespace mak;
 
 

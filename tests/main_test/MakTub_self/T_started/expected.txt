@@ -1,3 +1,0 @@
-
-	it_was_started: 1
-	has_not_been_started: 0

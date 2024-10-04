@@ -83,7 +83,7 @@ void private_MakTub_generate_num_seed(MakTub *self){
 
 
 
-    printf("%lld\n",self->num_seed);
+   // printf("%lld\n",self->num_seed);
 }
 
 
@@ -122,7 +122,7 @@ void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size){
 char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_chars){
 
     unsigned long total_chars = strlen(valid_chars);
-    char *target_token = (char*)malloc(token_size * sizeof(char));
+    char *target_token = (char*)malloc((token_size+2) * sizeof(char));
     UniversalGarbage_add_simple(self->garbage, target_token);
 
     target_token[token_size]  ='\0';

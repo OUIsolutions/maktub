@@ -1,5 +1,5 @@
 #include "../../MakTub.h"
-MakTubNameskace mak;
+MakTubNamespace mak;
 
 int main(){
     mak = newMakTubNameskace();

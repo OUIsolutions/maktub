@@ -6,7 +6,7 @@ With MakTup you can generate tokens through seeds, choosing the number of charac
 
 #include "../../MakTub.h"
 
-MakTubNameskace mak;
+MakTubNamespace mak;
 
 int main(){
   mak = newMakTubNameskace();
