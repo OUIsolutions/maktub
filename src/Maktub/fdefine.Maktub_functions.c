@@ -171,7 +171,7 @@ MakTubeStringArray * Maktube_aply_seed_modification_returning_string_array(
     long max_try,
     int max_itens
 ){
-    MakTubeStringArray * itens =newMakTubeStringArray();
+    MakTubeStringArray * itens = newMakTubeStringArray();
     UniversalGarbage_add(self->garbage,MakTubeStringArray_free, itens);
 
     for(int k = 0; k < max_try; k++){
