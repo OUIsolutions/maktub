@@ -1,8 +1,8 @@
 
 #ifndef MAKTUB_H
 #define MAKTUB_H
-#ifndef silverchain_native
-#define silverchain_native
+#ifndef maktub_native
+#define maktub_native
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -11,8 +11,8 @@
 #endif
 
 
-#ifndef silverchain_dependency
-#define silverchain_dependency
+#ifndef maktub_dependency
+#define maktub_dependency
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -387,8 +387,8 @@ void UniversalGarbage_free(UniversalGarbage *self){
 #endif
 
 
-#ifndef silverchain_consts
-#define silverchain_consts
+#ifndef maktub_consts
+#define maktub_consts
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -399,7 +399,9 @@ void UniversalGarbage_free(UniversalGarbage *self){
 #define MAKTUBE_FACTOR 1.55
 #define MAKTUBE_ONE_MILLION 1000000
 #define MAKTUBE_ONE_BILION 1000000000
+#define MAKTUBE_MIN_SEED MAKTUBE_ONE_MILLION
 #define MAKTUB_MAX_SEED MAKTUBE_ONE_BILION
+
 #define MAKTUB_PI 3141592
 
 
@@ -460,8 +462,8 @@ void UniversalGarbage_free(UniversalGarbage *self){
 #endif
 
 
-#ifndef silverchain_struct
-#define silverchain_struct
+#ifndef maktub_struct
+#define maktub_struct
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -472,7 +474,9 @@ void UniversalGarbage_free(UniversalGarbage *self){
 
 typedef struct MakTub
 {
-    char *seed;
+
+   struct MakTub *meta_object;
+   char *seed;
    unsigned long long    num_seed;
    UniversalGarbage *garbage;
    bool started;
@@ -487,11 +491,27 @@ typedef struct MakTub
 }MakTub;
 
 
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+typedef  struct MakTubeStringArray{
+
+    char **itens;
+    int allocated_size;
+    int size;
+
+}MakTubeStringArray;
+
+
 #endif
 
 
-#ifndef silverchain_structB
-#define silverchain_structB
+#ifndef maktub_structB
+#define maktub_structB
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -512,8 +532,8 @@ typedef struct MaktubGenerationNum{
 #endif
 
 
-#ifndef silverchain_structC
-#define silverchain_structC
+#ifndef maktub_structC
+#define maktub_structC
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -543,8 +563,26 @@ typedef struct MakTubeGenerationAction{
 #endif
 
 
-#ifndef silverchain_structD
-#define silverchain_structD
+#ifndef maktub_structD
+#define maktub_structD
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+typedef struct MakTubeStringArrayNamespace{
+
+    MakTubeStringArray * (*newStringArray)();
+    void (*append)(MakTubeStringArray *self,const char *item);
+    int  (*get_size)(MakTubeStringArray *self);
+    const char * (*get_str)(MakTubeStringArray *self,int index);
+
+    void (*free)(MakTubeStringArray *self);
+
+} MakTubeStringArrayNamespace;
+
+
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -607,8 +645,8 @@ typedef struct MakTubSequencialsNamespace {
 #endif
 
 
-#ifndef silverchain_structE
-#define silverchain_structE
+#ifndef maktub_structE
+#define maktub_structE
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -618,7 +656,7 @@ typedef struct MakTubSequencialsNamespace {
 
 typedef struct MakTubNamespace{
 
-
+     char *(*get_seed)(MakTub *self);
     void(*set_generation)(MakTub *self,int generation);
     void (*set_seed)(MakTub *self,const char *seed,...);
     void (*aply_seed_modification)(MakTub *self,int points[], int point_sizes,const char *valid_chars);
@@ -628,9 +666,32 @@ typedef struct MakTubNamespace{
     MakTubeGenerationAction * (*newGenerationAction)(MakTub *self);
     void * (*generate_choice)(MakTub *self,void **elements,int elements_size);
     char * (*generate_token)(MakTub *self ,int token_size,const char *valid_chars);
+    MakTubeStringArray * (*aply_seed_modification_returning_string_array)(
+        MakTub *self,
+        int *points,
+        int points_size,
+        const char *valid_chars,
+        void *(*blueprint_callback)(MakTub *self),
+        bool (*validator_callback)(MakTub *self,void *obj),
+        void (*releaser)(void *obj),
+        long max_try,
+        int max_itens
+    );
+
+    bool (*aply_seed_modification_til_find)(
+        MakTub *self,
+        int *points,
+        int points_size,
+        const char *valid_chars,
+        void *(*blueprint_callback)(MakTub *self),
+        bool (*validator_callback)(MakTub *self,void *obj),
+        void (*releaser)(void *obj),
+        long max_try
+    );
     GenerationNumNamespace num;
     GenerationActionNamespace actions;
     MakTubSequencialsNamespace  seqs;
+    MakTubeStringArrayNamespace string_array;
 
 void (*free)(MakTub *self);
 
@@ -640,8 +701,8 @@ void (*free)(MakTub *self);
 #endif
 
 
-#ifndef silverchain_fdeclare
-#define silverchain_fdeclare
+#ifndef maktub_fdeclare
+#define maktub_fdeclare
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -690,6 +751,8 @@ void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list
 
 void MakTub_set_seed(MakTub *self,const char *seed,...);
 
+char * MakTub_get_seed(MakTub *self);
+
 long long   Maktub_generate_num(MakTub *self,  long long  min, long long   max);
 
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self);
@@ -697,6 +760,29 @@ MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self);
 MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self);
 
 void * Maktub_generate_choice(MakTub *self,void **elements,int elements_size);
+
+bool Maktube_aply_seed_modification_til_find(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try
+);
+
+MakTubeStringArray * Maktube_aply_seed_modification_returning_string_array(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try,
+    int max_itens
+);
 
 
 char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_chars);
@@ -733,11 +819,40 @@ void private_MaktubGenerationNum_free(MaktubGenerationNum *self);
 //silver_chain_scope_end
 
 
+MakTubeStringArray * newMakTubeStringArray();
+
+void MakTubeStringArray_append(MakTubeStringArray *self,const char *item);
+
+int  MakTubeStringArray_get_size(MakTubeStringArray *self);
+
+const char * MakTubeStringArray_get_str(MakTubeStringArray *self,int index);
+
+void MakTubeStringArray_free(MakTubeStringArray *self);
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+
 long long MakTube_generate_random_num_based_on_seed(
     unsigned long long  seed,
     long long min,
     long long max
 );
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+MakTubeStringArrayNamespace newMakTubeStringArrayNamespace();
 
 
 
@@ -786,8 +901,8 @@ MakTubSequencialsNamespace newMakTubSequencialsNamespace();
 #endif
 
 
-#ifndef silverchain_fdefine
-#define silverchain_fdefine
+#ifndef maktub_fdefine
+#define maktub_fdefine
 
 //silver_chain_scope_start
 //mannaged by silver chain
@@ -858,7 +973,9 @@ MakTub * newMakTub(const char *seed,...){
     return self;
 }
 
-
+char * MakTub_get_seed(MakTub *self){
+    return  self->seed;
+}
 
 void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
     self->started = false;
@@ -884,7 +1001,9 @@ void MakTub_set_seed(MakTub *self,const char *seed,...){
 }
 
 void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars){
-    private_MakTub_generate_num_seed(self);
+    if(self->meta_object == NULL){
+        self->meta_object = newMakTub("%s",self->seed);
+    }
     int seed_size = strlen(self->seed);
     int valid_chars_size  = strlen(valid_chars);
     for(int i =0; i < point_sizes; i++){
@@ -892,7 +1011,7 @@ void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,co
         if(chose_index >=seed_size){
             continue;;
         }
-        int chose_index_to_replace = Maktub_generate_num(self,0,valid_chars_size-1);
+        int chose_index_to_replace = Maktub_generate_num(self->meta_object,0,valid_chars_size-1);
         char char_to_replace = valid_chars[chose_index_to_replace];
         self->seed[chose_index] = char_to_replace;
     }
@@ -913,8 +1032,8 @@ void private_MakTub_generate_num_seed(MakTub *self){
     for(unsigned long i = 0; i < str_size;i++ ){
         self->num_seed = MakTube_generate_random_num_based_on_seed(
             (self->num_seed + (unsigned int)self->seed[i]+i),
-            MAKTUBE_ONE_MILLION * 10,
-            MAKTUBE_ONE_BILION
+            MAKTUBE_MIN_SEED,
+            MAKTUB_MAX_SEED
         );
     }
 
@@ -970,8 +1089,69 @@ char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_char
     }
     return target_token;
 }
+bool Maktube_aply_seed_modification_til_find(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try
+){
+    for(int k = 0; k < max_try; k++){
+        void *test_case = blueprint_callback(self);
+        bool result = validator_callback(self,test_case);
+
+        if(releaser){
+            releaser(test_case);
+        }
+        if(result){
+            return true ;
+        }
+        MakTub_aply_seed_modification(self,points,points_size,valid_chars);
+    }
+    return false;
+}
+MakTubeStringArray * Maktube_aply_seed_modification_returning_string_array(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try,
+    int max_itens
+){
+    MakTubeStringArray * itens = newMakTubeStringArray();
+    UniversalGarbage_add(self->garbage,MakTubeStringArray_free, itens);
+
+    for(int k = 0; k < max_try; k++){
+
+        if(itens->size >= max_itens){
+            return itens;
+        }
+        void *test_case = blueprint_callback(self);
+        bool result = validator_callback(self,test_case);
+
+        if(releaser){
+            releaser(test_case);
+        }
+        if(result){
+            MakTubeStringArray_append(itens, self->seed);
+        }
+        MakTub_aply_seed_modification(self,points,points_size,valid_chars);
+    }
+
+    return itens;
+}
+
 void MakTub_free(MakTub *self){
     UniversalGarbage_free(self->garbage);
+    if(self->meta_object){
+        MakTub_free(self->meta_object);
+    }
     free(self->seed);
    free(self);
 }
@@ -1056,6 +1236,51 @@ void private_MaktubGenerationNum_free(MaktubGenerationNum *self){
 
 //silver_chain_scope_end
 
+MakTubeStringArray * newMakTubeStringArray(){
+    MakTubeStringArray *self = (MakTubeStringArray*)malloc(sizeof(MakTubeStringArray));
+    self->itens = malloc(1);
+    self->allocated_size = 1;
+    self->size = 0;
+    return self;
+}
+
+void MakTubeStringArray_append(MakTubeStringArray *self,const char *item){
+
+    long required_size = (self->size+1) * sizeof(char**);
+    if(self->allocated_size <= required_size) {
+        self->itens = realloc(self->itens, required_size * 3);
+    }
+    self->itens[self->size] = strdup(item);
+    self->size+=1;
+}
+
+int  MakTubeStringArray_get_size(MakTubeStringArray *self){
+    return self->size;
+}
+
+const char * MakTubeStringArray_get_str(MakTubeStringArray *self,int index){
+    if(index >= self->size){
+        return NULL;
+    }
+    return self->itens[index];
+}
+
+void MakTubeStringArray_free(MakTubeStringArray *self){
+    for(int i = 0; i < self->size;i++){
+        free(self->itens[i]);
+    }
+    free(self->itens);
+    free(self);
+}
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
 long long MakTube_generate_random_num_based_on_seed(
     unsigned long long  seed,
     long long min,
@@ -1081,6 +1306,24 @@ long long MakTube_generate_random_num_based_on_seed(
     result = result % max;
     result+=min;
     return  result;
+}
+
+
+
+//silver_chain_scope_start
+//mannaged by silver chain
+
+
+//silver_chain_scope_end
+
+MakTubeStringArrayNamespace newMakTubeStringArrayNamespace(){
+    MakTubeStringArrayNamespace self = {0};
+    self.newStringArray =newMakTubeStringArray;
+    self.append =MakTubeStringArray_append;
+    self.get_size = MakTubeStringArray_get_size;
+    self.get_str = MakTubeStringArray_get_str;
+    self.free = MakTubeStringArray_free;
+    return self;
 }
 
 
@@ -1129,6 +1372,8 @@ MakTubNamespace newMakTubNameskace(){
     MakTubNamespace self = {0};
 
     self.newMakTub=  newMakTub;
+    self.get_seed = MakTub_get_seed;
+
     self.set_generation = MakTub_set_generation;
     self.set_seed = MakTub_set_seed;
     self.aply_seed_modification = MakTub_aply_seed_modification;
@@ -1137,10 +1382,13 @@ MakTubNamespace newMakTubNameskace(){
     self.newGenerationAction = MakTub_newGenerationAction;
     self.generate_choice = Maktub_generate_choice;
     self.generate_token = MakTub_generate_token;
+    self.aply_seed_modification_returning_string_array= Maktube_aply_seed_modification_returning_string_array;
+    self.aply_seed_modification_til_find = Maktube_aply_seed_modification_til_find;
     self.free =  MakTub_free;
     self.num =newGenerationNumNamespace();
     self.actions = newGenerationActionNamespace();
     self.seqs = newMakTubSequencialsNamespace();
+    self.string_array = newMakTubeStringArrayNamespace();
     return self;
 
 }

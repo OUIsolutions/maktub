@@ -1,4 +1,4 @@
-#ifndef silverchain_native
-#define silverchain_native
+#ifndef maktub_native
+#define maktub_native
 #include "../native.requirements.h"
 #endif

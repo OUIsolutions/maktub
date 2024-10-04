@@ -5,7 +5,39 @@ theorem tests, procedural objects constructions and anything that you need
 pseudo random usage
 
 ## Install
-These lib its designed to be as dumb as possible
+These lib its designed to be as dumb as possible,for usage just download the
+[Amalgamation File](aa) int your project and include it directly into your main
+
+```c
+#include "MakTub.h"
+int main(){
+}
+```
+
+
+## Full Folder
+you also can run the project directy from folder, just copy the **src** folder into
+your project and include the **src/one.c** file into yout main
+```c
+#include "src/one.c"
+int main(){
+
+}
+
+```
+## Building From Scracth
+if you want you can build from scracth the almagamation ,or work into the project
+for builiding just run:
+```sh
+sh pre_build.sh && ./build.out
+```
+it will generate the amalgamation in **release** , and execute all the unit tests
+
+#### SilverChain Path
+these project uses [Silverchain](https://github.com/OUIsolutions/SilverChain) as
+the default includer, and we recomen you to use, to a better development on files modification
+for usage in these project, download silverchain and put the **silverchain binary**
+into the main root dir, and run the sh **watch.sh** file
 
 
 ## Quick Usage
@@ -51,5 +83,12 @@ you can make small seed modifications to test varios hipoteses
 
 codeof:exemples/seed_modify.c
 
+### Finding Seed
+you can find seed based on lambda blueprints and verifiers
+codeof:exemples/seed_modify.c
 
-d
+### Finding many seeds
+if you need you can find many seeds at once with string arrays
+
+
+codeof:exemples/finding_string_array.c

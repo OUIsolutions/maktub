@@ -1,5 +1,5 @@
 #include "imports.structB.h"
-#ifndef silverchain_structC
-#define silverchain_structC
+#ifndef maktub_structC
+#define maktub_structC
 #include "../MakTubeGenerationAction/structC.MakTubeGenerationAction.h"
 #endif

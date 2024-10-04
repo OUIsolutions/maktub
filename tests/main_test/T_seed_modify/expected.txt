@@ -1,4 +1,4 @@
 seed = your seed here
-first =81
-seed = ZLAr seed here
-second = 36
+first =56
+seed = qp9r seed here
+second = 13

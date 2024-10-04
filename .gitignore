@@ -51,5 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 cache2
+release
 
 jsons_teses

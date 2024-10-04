@@ -1,6 +1,6 @@
 #include "imports.structE.h"
-#ifndef silverchain_fdeclare
-#define silverchain_fdeclare
+#ifndef maktub_fdeclare
+#define maktub_fdeclare
 #include "../MakTubeGenerationAction/fdeclare.MakTubeGenerationAction_functions.h"
 #include "../Maktub/fdeclare.Maktub_functions.h"
 #include "../MaktubeGenerationNum/fdeclare.MaktubeGenerationNum_functions.h"

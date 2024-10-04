@@ -1,5 +1,5 @@
 #include "imports.structD.h"
-#ifndef silverchain_structE
-#define silverchain_structE
+#ifndef maktub_structE
+#define maktub_structE
 #include "../namespaces/maktub/structE.maktub.h"
 #endif

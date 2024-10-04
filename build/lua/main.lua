@@ -10,6 +10,7 @@ local function main()
 
     local amalgamation_result = amalgamation_cache.perform()
     dtw.write_file(END_TEST_POINT, amalgamation_result)
+    dtw.write_file(RELEASE_FOLDER .. "/" .. OUTPUT_SINGLE_FILE, amalgamation_result)
 
     Execute_full_test(cache, src_sha)
 
@@ -22,9 +23,6 @@ local function main()
     if readme ~= nil then
         dtw.write_file("README.md", readme)
     end
-    dtw.write_file(RELEASE_FOLDER .. "/" .. OUTPUT_SINGLE_FILE, amalgamation_result)
-
-
 end
 
 main()

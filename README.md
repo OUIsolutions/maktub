@@ -5,7 +5,37 @@ theorem tests, procedural objects constructions and anything that you need
 pseudo random usage
 
 ## Install
-These lib its designed to be as dumb as possible just download the
+These lib its designed to be as dumb as possible,for usage just download the
+[Amalgamation File](aa) int your project and include it directly into your main
+
+```c
+#include "MakTub.h"
+int main(){
+}
+```
+
+
+## Full Folder
+you also can run the project directy from folder, just copy the **src** folder into
+your project and include the **src/one.c** file into yout main
+```c
+#include "src/one.c"
+int main(){
+
+}
+
+```
+## Building From Scracth
+if you want you can build from scracth the almagamation ,or work into the project
+for builiding just run:
+```sh
+sh pre_build.sh && ./build.out
+```
+it will generate the amalgamation in **release** , and execute all the unit tests
+
+#### SilverChain Path
+these project uses [Silverchain](https://github.com/OUIsolutions/SilverChain) as
+the default includer, and we recomen you to use, to a better development on files modification
 
 
 ## Quick Usage
@@ -279,11 +309,11 @@ int main(){
     mak = newMakTubNameskace();
     MakTub * obj = mak.newMakTub("your seed here");
     int num = mak.generate_num(obj,0,100);
-    printf("seed = %s\n",obj->seed);
+    printf("seed = %s\n",mak.get_seed(obj));
     printf("first =%d\n",num);
     mak.aply_seed_modification(obj,(int[]){0,1,2},3,mak.seqs.allpha_nuns);
     int num2 = mak.generate_num(obj,0,100);
-    printf("seed = %s\n",obj->seed);
+    printf("seed = %s\n",mak.get_seed(obj));
     printf("second = %d\n",num2); //it will be equal to first
     mak.free(obj);
     return 0;
@@ -291,5 +321,30 @@ int main(){
 
 ~~~
 
+### Finding Seed
+you can find seed based on lambda blueprints and verifiers
 
-d
+~~~c
+#include "MakTub.h"
+MakTubNamespace mak;
+
+int main(){
+    mak = newMakTubNameskace();
+    MakTub * obj = mak.newMakTub("your seed here");
+    int num = mak.generate_num(obj,0,100);
+    printf("seed = %s\n",mak.get_seed(obj));
+    printf("first =%d\n",num);
+    mak.aply_seed_modification(obj,(int[]){0,1,2},3,mak.seqs.allpha_nuns);
+    int num2 = mak.generate_num(obj,0,100);
+    printf("seed = %s\n",mak.get_seed(obj));
+    printf("second = %d\n",num2); //it will be equal to first
+    mak.free(obj);
+    return 0;
+}
+
+~~~
+
+### Finding many seeds
+if you need you can find many seeds at once with string arrays
+
+

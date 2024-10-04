@@ -1,5 +1,5 @@
 #include "imports.native.h"
-#ifndef silverchain_dependency
-#define silverchain_dependency
+#ifndef maktub_dependency
+#define maktub_dependency
 #include "../dependencies/dependency.UniversalGarbage.h"
 #endif

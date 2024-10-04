@@ -1,6 +1,6 @@
 #include "imports.consts.h"
-#ifndef silverchain_struct
-#define silverchain_struct
+#ifndef maktub_struct
+#define maktub_struct
 #include "../Maktub/struct.MakTub.h"
 #include "../MaktubeStringArray/struct.MakTubeStringArray.h"
 #endif

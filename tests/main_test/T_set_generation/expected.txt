@@ -1,2 +1,2 @@
-first =81
-second = 80
+first =56
+second = 41
