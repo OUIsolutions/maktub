@@ -1,13 +1,7 @@
-#include "src/one.c"
-#include "extra/doTheWorld.h"
-#include "extra/CHashManipulator.h"
-#include "tests/MakTub.h"
-#include <string.h>
-
+#include "../../MakTub.h"
 
 MakTubNamespace mak;
-CHashNamespace chash;
-DtwNamespace dtw;
+
 
 void *blue_print_generator(MakTub *self){
     char *nation[] = {"Brazilian","American","Portuguese"};
@@ -28,8 +22,7 @@ int main(){
 
     // 8
    mak =newMakTubNameskace();
-   chash = newCHashNamespace();
-   dtw = newDtwNamespace();
+
    mak = newMakTubNameskace();
 
    MakTub *maktube_obj = mak.newMakTub("eai parsa suave ");
@@ -54,6 +47,7 @@ int main(){
         printf("seed: '%s'\n",mak.string_array.get_str(itens,i));
     }
 
+    mak.free(maktube_obj);
 
     return 0;
 

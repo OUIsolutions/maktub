@@ -5,7 +5,7 @@ theorem tests, procedural objects constructions and anything that you need
 pseudo random usage
 
 ## Install
-These lib its designed to be as dumb as possible
+These lib its designed to be as dumb as possible just download the
 
 
 ## Quick Usage
