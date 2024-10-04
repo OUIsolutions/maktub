@@ -135,6 +135,30 @@ char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_char
     }
     return target_token;
 }
+bool Maktube_aply_seed_modification_til_find(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try
+){
+    for(int k = 0; k < max_try; k++){
+        void *test_case = blueprint_callback(self);
+        bool result = validator_callback(self,test_case);
+
+        if(releaser){
+            releaser(test_case);
+        }
+        if(result){
+            return true ;
+        }
+        MakTub_aply_seed_modification(self,points,points_size,valid_chars);
+    }
+    return false;
+}
 void MakTub_free(MakTub *self){
     UniversalGarbage_free(self->garbage);
     if(self->meta_object){

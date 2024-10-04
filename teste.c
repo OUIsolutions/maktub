@@ -83,11 +83,11 @@ int main(){
 
 
    dtw.remove_any("jsons_teses");
-   MakTub *maktube_obj = mak.newMakTub("eai parsa suave ");
+   MakTub *maktube_obj = mak.newMakTub("nCHasdmepdddde");
    int tota_creation = 0;
    for(int i = 0; i < 1000; i++){
        tota_creation+=cria_json(maktube_obj);
-       mak.aply_seed_modification(maktube_obj,(int[]){1,3,5,7},4,mak.seqs.allpha_nuns);
+       mak.aply_seed_modification(maktube_obj,(int[]){1,3,4,6},4,mak.seqs.allpha_nuns);
        if(tota_creation > 300){
            break;;
        }

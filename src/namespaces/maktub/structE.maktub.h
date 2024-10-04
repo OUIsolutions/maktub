@@ -16,6 +16,17 @@ typedef struct MakTubNamespace{
     MakTubeGenerationAction * (*newGenerationAction)(MakTub *self);
     void * (*generate_choice)(MakTub *self,void **elements,int elements_size);
     char * (*generate_token)(MakTub *self ,int token_size,const char *valid_chars);
+
+    bool (*aply_seed_modification_til_find)(
+        MakTub *self,
+        int *points,
+        int points_size,
+        const char *valid_chars,
+        void *(*blueprint_callback)(MakTub *self),
+        bool (*validator_callback)(MakTub *self,void *obj),
+        void (*releaser)(void *obj),
+        long max_try
+    );
     GenerationNumNamespace num;
     GenerationActionNamespace actions;
     MakTubSequencialsNamespace  seqs;
