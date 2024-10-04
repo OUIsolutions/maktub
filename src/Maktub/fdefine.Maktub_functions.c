@@ -74,19 +74,14 @@ void private_MakTub_generate_num_seed(MakTub *self){
     unsigned long str_size  = strlen(self->seed);
 
 
-    for(unsigned long i = 0; i < str_size-2;i++ ){
-        int first = MakTube_generate_random_num_based_on_seed(
-            (unsigned char)self->seed[i],
-            1000,
-            2000
-        );
-        int second = MakTube_generate_random_num_based_on_seed(
-            (unsigned char)self->seed[i+1],
-            1000,
-            2000
-        );
+    for(unsigned long i = 0; i < str_size-3;i++ ){
+
+
         self->num_seed = MakTube_generate_random_num_based_on_seed(
-            self->num_seed  + (first * second),
+            self->num_seed  * (
+                (unsigned char)self->seed[i] *
+                (unsigned char)self->seed[i+1]
+            ),
             MAKTUBE_ONE_MILLION,
             MAKTUBE_ONE_MILLION * 10
         );

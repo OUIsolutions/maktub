@@ -79,12 +79,12 @@ int main(){
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    dtw.remove_any("jsons_teses");
-   MakTub *maktube_obj = mak.newMakTub("was644sd232sdsdasds22");
+   MakTub *maktube_obj = mak.newMakTub("newCHashNamespaece");
    int tota_creation = 0;
    for(int i = 0; i < 1000; i++){
        tota_creation+=cria_json(maktube_obj);
-       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,3},4,"0123456789");
-       if(tota_creation > 100){
+       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,3,4,5},6,"0123456789");
+       if(tota_creation > 300){
            break;;
        }
    }
