@@ -1,10 +1,10 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../../imports/imports.structC.h"
+#include "../../imports/imports.structD.h"
 //silver_chain_scope_end
 
-typedef struct MakTubNameskace{
+typedef struct MakTubNamespace{
 
 
     void(*set_generation)(MakTub *self,int generation);
@@ -18,8 +18,8 @@ typedef struct MakTubNameskace{
     char * (*generate_token)(MakTub *self ,int token_size,const char *valid_chars);
     GenerationNumNamespace num;
     GenerationActionNamespace actions;
-
+    MakTubSequencialsNamespace  seqs;
 
 void (*free)(MakTub *self);
 
-}MakTubNameskace;
+}MakTubNamespace;

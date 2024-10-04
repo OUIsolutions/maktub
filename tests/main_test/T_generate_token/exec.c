@@ -6,9 +6,6 @@ With MakTup you can generate tokens through seeds, choosing the number of charac
 
 #include "../../MakTub.h"
 
-#define ACCEPTED_CARACTERS "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz !@#$%*()"
-#define NUMBER_OF_CARACTERS 12
-
 MakTubNameskace mak;
 
 int main(){
@@ -16,15 +13,9 @@ int main(){
 
   MakTub * obj = mak.newMakTub("your seed here");
 
-  const char *token_generated = ACCEPTED_CARACTERS; //mak.generate_token(obj, NUMBER_OF_CARACTERS, ACCEPTED_CARACTERS);
-  
-  printf("%s\n",token_generated);
-  
+  char *token = mak.generate_token(obj,10,"ABCDEFGHIJLMNQ");
+  printf("%s\n",token);
   mak.free(obj);
-  
+
   return 0;
 }
-
-
-
-

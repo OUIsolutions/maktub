@@ -1,7 +1,7 @@
 #include "src/one.c"
 #include "extra/doTheWorld.h"
 #include "extra/CHashManipulator.h"
-MakTubNameskace mak;
+MakTubNamespace mak;
 CHashNamespace chash;
 DtwNamespace dtw;
 

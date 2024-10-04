@@ -1,15 +1,24 @@
 
+## Maktub
+Maktube its a pseudo randon generative library designed to generate
+theorem tests, procedural objects constructions and anything that you need
+pseudo random usage
 
-Examples using the above library
+## Install
+These lib its designed to be as dumb as possible
 
-codeof:exemples/actions/subscribe_function.c
-codeof:exemples/generate_choice.c
-codeof:exemples/generate_token.c
+
+## Quick Usage
+these above example generates a simple rand number betwen  0 and 100
+
 codeof:exemples/rand_num.c
-codeof:exemples/MakTub_self/seed.c
-codeof:exemples/MakTub_self/started.c
-codeof:exemples/MakTub_self/static_args.c
 
+## Generating Tokens
+you also can generate tokens of diferent sizes of diferent chars
 
+codeof:exemples/generate_token.c
 
-.
+## Choice
+you can choice betwen lists with generate choice functionality
+
+codeof:exemples/generate_choice.c

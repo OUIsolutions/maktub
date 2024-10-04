@@ -1,7 +1,7 @@
 #include "src/one.c"
 #include "extra/doTheWorld.h"
 #include "extra/CHashManipulator.h"
-MakTubNameskace mak;
+MakTubNamespace mak;
 CHashNamespace chash;
 DtwNamespace dtw;
 
@@ -79,11 +79,11 @@ int main(){
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    dtw.remove_any("jsons_teses");
-   MakTub *maktube_obj = mak.newMakTub("1nwCHassdmsespdde");
+   MakTub *maktube_obj = mak.newMakTub("nCHasdmepdddde");
    int tota_creation = 0;
    for(int i = 0; i < 1000; i++){
        tota_creation+=cria_json(maktube_obj);
-       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,3},4,"0123456789");
+       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,4},4,"0123456789");
        if(tota_creation > 300){
            break;;
        }

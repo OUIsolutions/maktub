@@ -5,4 +5,5 @@
 #include "../consts/consts.defaults.h"
 #include "../consts/consts.errors.h"
 #include "../consts/consts.generation.h"
+#include "../consts/consts.sequencials.h"
 #endif

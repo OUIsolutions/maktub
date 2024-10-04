@@ -72,14 +72,16 @@ void private_MakTub_generate_num_seed(MakTub *self){
 
     unsigned long str_size  = strlen(self->seed);
 
-
     for(unsigned long i = 0; i < str_size;i++ ){
         self->num_seed = MakTube_generate_random_num_based_on_seed(
-            (self->num_seed + (unsigned int)self->seed[i] + i),
+            (self->num_seed + (unsigned int)self->seed[i]+i),
             MAKTUBE_ONE_MILLION * 10,
-            MAKTUBE_ONE_MILLION  *100
+            MAKTUBE_ONE_BILION
         );
     }
+
+
+
 
     printf("%lld\n",self->num_seed);
 }

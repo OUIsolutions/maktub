@@ -4,8 +4,8 @@
 #include "../../imports/imports.fdeclare.h"
 //silver_chain_scope_end
 
-MakTubNameskace newMakTubNameskace(){
-    MakTubNameskace self = {0};
+MakTubNamespace newMakTubNameskace(){
+    MakTubNamespace self = {0};
 
     self.newMakTub=  newMakTub;
     self.set_generation = MakTub_set_generation;
@@ -19,6 +19,7 @@ MakTubNameskace newMakTubNameskace(){
     self.free =  MakTub_free;
     self.num =newGenerationNumNamespace();
     self.actions = newGenerationActionNamespace();
+    self.seqs = newMakTubSequencialsNamespace();
     return self;
 
 }

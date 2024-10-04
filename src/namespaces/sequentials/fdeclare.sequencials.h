@@ -4,4 +4,5 @@
 #include "../../imports/imports.structE.h"
 //silver_chain_scope_end
 
-MakTubNamespace newMakTubNameskace();
+
+MakTubSequencialsNamespace newMakTubSequencialsNamespace();
