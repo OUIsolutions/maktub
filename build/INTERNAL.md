@@ -1,6 +1,6 @@
 
 ## Maktub
-Maktube its a pseudo randon generative library designed to generate
+Maktub its a pseudo randon generative library designed to generate
 theorem tests, procedural objects constructions and anything that you need
 pseudo random usage
 
@@ -92,6 +92,3 @@ if you need you can find many seeds at once with string arrays
 
 
 codeof:exemples/finding_string_array.c
-
-
-
