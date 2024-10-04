@@ -13,7 +13,7 @@ long long MakTube_generate_random_num_based_on_seed(
 
     unsigned long long result = seed + MAKTUB_PI;
 
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < MAKTUBE_SUFFLE; i++){
         while (result < MAKTUB_MAX_SEED){
             result *= MAKTUBE_FACTOR;
         }

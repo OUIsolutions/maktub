@@ -72,15 +72,14 @@ void private_MakTub_generate_num_seed(MakTub *self){
     self->generation = 0;
 
     unsigned long str_size  = strlen(self->seed);
-    for(int v = 0; v < 10; v++){
-        for(unsigned long i = 0; i < str_size-3;i++ ){
-            self->num_seed = MakTube_generate_random_num_based_on_seed(
-                 self->num_seed +(unsigned char )self->seed[i],
-                MAKTUBE_ONE_MILLION,
-                MAKTUBE_ONE_MILLION  *10
-            );
-        }
+    for(unsigned long i = 0; i < str_size-3;i++ ){
+        self->num_seed = MakTube_generate_random_num_based_on_seed(
+                self->num_seed +(unsigned char )self->seed[i],
+            MAKTUBE_ONE_MILLION,
+            MAKTUBE_ONE_MILLION  *10
+        );
     }
+
 
     printf("%lld\n",self->num_seed);
 }
