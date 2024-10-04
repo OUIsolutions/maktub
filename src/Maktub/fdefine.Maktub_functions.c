@@ -76,18 +76,25 @@ void private_MakTub_generate_num_seed(MakTub *self){
 
     for(unsigned long i = 0; i < str_size-3;i++ ){
 
-
-        self->num_seed = MakTube_generate_random_num_based_on_seed(
-            self->num_seed  * (
-                (unsigned char)self->seed[i] *
-                (unsigned char)self->seed[i+1]
-            ),
-            MAKTUBE_ONE_MILLION,
-            MAKTUBE_ONE_MILLION * 10
+        long long first =  MakTube_generate_random_num_based_on_seed(
+             self->num_seed + self->seed[i],
+            1000,
+            2000
+        );
+        long long second  =  MakTube_generate_random_num_based_on_seed(
+             self->num_seed + (first * self->seed[i+1]),
+            1000,
+            2000
         );
 
-     }
-    self->num_seed *=3;
+        self->num_seed = MakTube_generate_random_num_based_on_seed(
+             self->num_seed + (first * second),
+            MAKTUBE_ONE_MILLION,
+            MAKTUBE_ONE_MILLION  *10
+        );
+
+    }
+
     printf("%lld\n",self->num_seed);
 }
 
@@ -109,7 +116,7 @@ MakTubeGenerationAction * MakTub_newGenerationAction(MakTub *self){
 long long   Maktub_generate_num(MakTub *self,  long long  min, long long   max){
     self->generation+=1;
     private_MakTub_generate_num_seed(self);
-    unsigned long long  current_seed = self->num_seed + self->generation;
+    unsigned long long  current_seed = self->num_seed * self->generation;
     return MakTube_generate_random_num_based_on_seed(
          current_seed,
          min,
