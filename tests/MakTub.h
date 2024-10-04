@@ -1238,7 +1238,7 @@ void private_MaktubGenerationNum_free(MaktubGenerationNum *self){
 
 MakTubeStringArray * newMakTubeStringArray(){
     MakTubeStringArray *self = (MakTubeStringArray*)malloc(sizeof(MakTubeStringArray));
-    self->itens = malloc(1);
+    self->itens = (char**)malloc(1);
     self->allocated_size = 1;
     self->size = 0;
     return self;
@@ -1248,7 +1248,7 @@ void MakTubeStringArray_append(MakTubeStringArray *self,const char *item){
 
     long required_size = (self->size+1) * sizeof(char**);
     if(self->allocated_size <= required_size) {
-        self->itens = realloc(self->itens, required_size * 3);
+        self->itens = (char**)realloc(self->itens, required_size * 3);
     }
     self->itens[self->size] = strdup(item);
     self->size+=1;
