@@ -15,8 +15,8 @@ int main(){
 
    int nums[100] ={0};
    int num_size = sizeof(nums) / sizeof(int);
-   unsigned long long seed = 323;
-   for(int i=0; i <100;i++){
+   unsigned long long seed = 5321120;
+   for(int i=0; i <1000;i++){
        int chose =MakTube_generate_random_num_based_on_seed(seed+i,0,num_size-1);
        nums[chose]+=1;
    }
@@ -24,7 +24,7 @@ int main(){
    for(int i =0; i <num_size;i++){
        int current = nums[i];
        if(current){
-           printf("%d = %d\n",i,current);
+         printf("%d = %d\n",i,current);
        }
    }
 
