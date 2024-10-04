@@ -8,6 +8,8 @@ MakTubNamespace newMakTubNameskace(){
     MakTubNamespace self = {0};
 
     self.newMakTub=  newMakTub;
+    self.get_seed = MakTub_get_seed;
+
     self.set_generation = MakTub_set_generation;
     self.set_seed = MakTub_set_seed;
     self.aply_seed_modification = MakTub_aply_seed_modification;

@@ -20,7 +20,9 @@ MakTub * newMakTub(const char *seed,...){
     return self;
 }
 
-
+char * MakTub_get_seed(MakTub *self){
+    return  self->seed;
+}
 
 void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
     self->started = false;
@@ -174,7 +176,7 @@ MakTubeStringArray * Maktube_aply_seed_modification_returning_string_array(
 
     for(int k = 0; k < max_try; k++){
 
-        if(itens->size > max_itens){
+        if(itens->size >= max_itens){
             return itens;
         }
         void *test_case = blueprint_callback(self);
