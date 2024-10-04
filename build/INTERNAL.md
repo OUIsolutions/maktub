@@ -85,10 +85,13 @@ codeof:exemples/seed_modify.c
 
 ### Finding Seed
 you can find seed based on lambda blueprints and verifiers
-codeof:exemples/seed_modify.c
+codeof:exemples/finding_seed.c
 
 ### Finding many seeds
 if you need you can find many seeds at once with string arrays
 
 
 codeof:exemples/finding_string_array.c
+
+
+
