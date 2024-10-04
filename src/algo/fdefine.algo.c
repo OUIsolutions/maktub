@@ -13,10 +13,12 @@ long long MakTube_generate_random_num_based_on_seed(
 
     unsigned long long result = seed + MAKTUB_PI;
 
-    while (result < MAKTUB_MAX_SEED){
-        result *= MAKTUBE_FACTOR;
+    for(int i = 0; i < 10; i++){
+        while (result < MAKTUB_MAX_SEED){
+            result *= MAKTUBE_FACTOR;
+        }
+        result = result % MAKTUB_MAX_SEED;
     }
-    result = result % MAKTUB_MAX_SEED;
     max+=1;
     max -= min;
     result = result % max;
