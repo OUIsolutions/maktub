@@ -2,6 +2,7 @@
 //silver_chain_scope_start
 //mannaged by silver chain
 #include "../imports/imports.fdeclare.h"
+#include <string.h>
 //silver_chain_scope_end
 
 
@@ -46,7 +47,9 @@ void MakTub_set_seed(MakTub *self,const char *seed,...){
 }
 
 void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars){
-    private_MakTub_generate_num_seed(self);
+    if(self->meta_object == NULL){
+        self->meta_object = newMakTub("%s",self->seed);
+    }
     int seed_size = strlen(self->seed);
     int valid_chars_size  = strlen(valid_chars);
     for(int i =0; i < point_sizes; i++){
@@ -54,7 +57,7 @@ void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,co
         if(chose_index >=seed_size){
             continue;;
         }
-        int chose_index_to_replace = Maktub_generate_num(self,0,valid_chars_size-1);
+        int chose_index_to_replace = Maktub_generate_num(self->meta_object,0,valid_chars_size-1);
         char char_to_replace = valid_chars[chose_index_to_replace];
         self->seed[chose_index] = char_to_replace;
     }
@@ -75,8 +78,8 @@ void private_MakTub_generate_num_seed(MakTub *self){
     for(unsigned long i = 0; i < str_size;i++ ){
         self->num_seed = MakTube_generate_random_num_based_on_seed(
             (self->num_seed + (unsigned int)self->seed[i]+i),
-            MAKTUBE_ONE_MILLION * 10,
-            MAKTUBE_ONE_BILION
+            MAKTUBE_ONE_MILLION,
+            MAKTUBE_ONE_MILLION * 100
         );
     }
 
@@ -134,6 +137,9 @@ char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_char
 }
 void MakTub_free(MakTub *self){
     UniversalGarbage_free(self->garbage);
+    if(self->meta_object){
+        MakTub_free(self->meta_object);
+    }
     free(self->seed);
    free(self);
 }

@@ -78,18 +78,8 @@ int main(){
    mak =newMakTubNameskace();
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
-
-
-
    mak = newMakTubNameskace();
-   MakTub * obj = mak.newMakTub("your seed here");
-   int num = mak.generate_num(obj,0,100);
-   printf("first =%d\n",num);
-   mak.set_generation(obj,0);
-   int num2 = mak.generate_num(obj,0,100);
-   printf("second = %d\n",num2); //it will be equal to first
-   mak.free(obj);
-   return 0;
+
 
 
    dtw.remove_any("jsons_teses");
@@ -97,12 +87,12 @@ int main(){
    int tota_creation = 0;
    for(int i = 0; i < 1000; i++){
        tota_creation+=cria_json(maktube_obj);
-       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,4},4,"0123456789");
-       if(tota_creation > 300){
+       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,3},4,"0123456789");
+       if(tota_creation > 400){
            break;;
        }
    }
-  printf("%d\n",tota_creation);
+  printf("total =%d\n",tota_creation);
    mak.free(maktube_obj);
   return 0;
 
