@@ -78,8 +78,8 @@ void private_MakTub_generate_num_seed(MakTub *self){
     for(unsigned long i = 0; i < str_size;i++ ){
         self->num_seed = MakTube_generate_random_num_based_on_seed(
             (self->num_seed + (unsigned int)self->seed[i]+i),
-            MAKTUBE_ONE_MILLION,
-            MAKTUBE_ONE_MILLION * 100
+            MAKTUBE_MIN_SEED,
+            MAKTUB_MAX_SEED
         );
     }
 
