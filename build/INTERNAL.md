@@ -92,3 +92,6 @@ if you need you can find many seeds at once with string arrays
 
 
 codeof:exemples/finding_string_array.c
+
+
+
