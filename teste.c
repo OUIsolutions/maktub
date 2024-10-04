@@ -79,7 +79,7 @@ int main(){
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    dtw.remove_any("jsons_teses");
-   MakTub *maktube_obj = mak.newMakTub("teste qualqfffewjejwijiwjews");
+   MakTub *maktube_obj = mak.newMakTub("wasasa");
    int tota_creation = 0;
    for(int i = 0; i < 1000; i++){
        tota_creation+=cria_json(maktube_obj);
