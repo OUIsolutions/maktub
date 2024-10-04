@@ -16,11 +16,13 @@ MakTubNamespace newMakTubNameskace(){
     self.newGenerationAction = MakTub_newGenerationAction;
     self.generate_choice = Maktub_generate_choice;
     self.generate_token = MakTub_generate_token;
+    self.aply_seed_modification_returning_string_array= Maktube_aply_seed_modification_returning_string_array;
     self.aply_seed_modification_til_find = Maktube_aply_seed_modification_til_find;
     self.free =  MakTub_free;
     self.num =newGenerationNumNamespace();
     self.actions = newGenerationActionNamespace();
     self.seqs = newMakTubSequencialsNamespace();
+    self.string_array = newMakTubeStringArrayNamespace();
     return self;
 
 }

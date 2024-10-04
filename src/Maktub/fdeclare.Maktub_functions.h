@@ -38,6 +38,18 @@ bool Maktube_aply_seed_modification_til_find(
     long max_try
 );
 
+MakTubeStringArray * Maktube_aply_seed_modification_returning_string_array(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try,
+    int max_itens
+);
+
 
 char * MakTub_generate_token(MakTub *self ,int token_size,const char *valid_chars);
 

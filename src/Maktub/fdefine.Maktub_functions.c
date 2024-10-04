@@ -2,7 +2,6 @@
 //silver_chain_scope_start
 //mannaged by silver chain
 #include "../imports/imports.fdeclare.h"
-#include <string.h>
 //silver_chain_scope_end
 
 
@@ -159,6 +158,40 @@ bool Maktube_aply_seed_modification_til_find(
     }
     return false;
 }
+MakTubeStringArray * Maktube_aply_seed_modification_returning_string_array(
+    MakTub *self,
+    int *points,
+    int points_size,
+    const char *valid_chars,
+    void *(*blueprint_callback)(MakTub *self),
+    bool (*validator_callback)(MakTub *self,void *obj),
+    void (*releaser)(void *obj),
+    long max_try,
+    int max_itens
+){
+    MakTubeStringArray * itens =newMakTubeStringArray();
+    UniversalGarbage_add(self->garbage,MakTubeStringArray_free, itens);
+
+    for(int k = 0; k < max_try; k++){
+
+        if(itens->size > max_itens){
+            return itens;
+        }
+        void *test_case = blueprint_callback(self);
+        bool result = validator_callback(self,test_case);
+
+        if(releaser){
+            releaser(test_case);
+        }
+        if(result){
+            MakTubeStringArray_append(itens, self->seed);
+        }
+        MakTub_aply_seed_modification(self,points,points_size,valid_chars);
+    }
+
+    return itens;
+}
+
 void MakTub_free(MakTub *self){
     UniversalGarbage_free(self->garbage);
     if(self->meta_object){

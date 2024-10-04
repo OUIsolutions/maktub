@@ -1,6 +1,7 @@
 #include "src/one.c"
 #include "extra/doTheWorld.h"
 #include "extra/CHashManipulator.h"
+#include "tests/MakTub.h"
 MakTubNamespace mak;
 CHashNamespace chash;
 DtwNamespace dtw;
@@ -74,12 +75,11 @@ bool cria_json(MakTub *maktube_obj){
 
 int main(){
 
-    // 8
+
    mak =newMakTubNameskace();
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    mak = newMakTubNameskace();
-
 
 
    dtw.remove_any("jsons_teses");
