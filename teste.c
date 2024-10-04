@@ -78,6 +78,20 @@ int main(){
    mak =newMakTubNameskace();
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
+
+
+
+   mak = newMakTubNameskace();
+   MakTub * obj = mak.newMakTub("your seed here");
+   int num = mak.generate_num(obj,0,100);
+   printf("first =%d\n",num);
+   mak.set_generation(obj,0);
+   int num2 = mak.generate_num(obj,0,100);
+   printf("second = %d\n",num2); //it will be equal to first
+   mak.free(obj);
+   return 0;
+
+
    dtw.remove_any("jsons_teses");
    MakTub *maktube_obj = mak.newMakTub("nCHasdmepdddde");
    int tota_creation = 0;

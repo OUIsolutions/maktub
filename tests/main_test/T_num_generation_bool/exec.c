@@ -25,6 +25,6 @@ int main(){
   if(!you_play_minecraft){
       printf("you dont play minecraft\n");
   }
-
+  mak.free(obj);
   return 0;
 }

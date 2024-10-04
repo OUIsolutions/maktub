@@ -20,6 +20,6 @@ int main(){
   mak.num.add_probability(nuns,0.33);
 
   printf("chosed alternative %d",mak.num.perform(nuns));
-
+  mak.free(obj);
   return 0;
 }

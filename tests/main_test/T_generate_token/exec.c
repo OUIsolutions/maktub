@@ -13,7 +13,7 @@ int main(){
 
   MakTub * obj = mak.newMakTub("your seed here");
 
-  char *token = mak.generate_token(obj,10,"ABCDEFGHIJLMNQ");
+  char *token = mak.generate_token(obj,10,mak.seqs.allpha_nuns);
   printf("%s\n",token);
   mak.free(obj);
 
