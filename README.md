@@ -6,7 +6,7 @@ pseudo random usage
 
 ## Install
 These lib its designed to be as dumb as possible,for usage just download the
-[Amalgamation File](aa) int your project and include it directly into your main
+[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.001/MakTub.h) int your project and include it directly into your main
 
 ```c
 #include "MakTub.h"
@@ -36,6 +36,8 @@ it will generate the amalgamation in **release** , and execute all the unit test
 #### SilverChain Path
 these project uses [Silverchain](https://github.com/OUIsolutions/SilverChain) as
 the default includer, and we recomen you to use, to a better development on files modification
+for usage in these project, download silverchain and put the **silverchain binary**
+into the main root dir, and run the sh **watch.sh** file
 
 
 ## Quick Usage
