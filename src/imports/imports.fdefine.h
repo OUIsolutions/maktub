@@ -7,5 +7,5 @@
 #include "../algo/fdefine.algo.c"
 #include "../namespaces/generation_action/fdefine.generate_action_start_namespace.c"
 #include "../namespaces/generation_num/fdefine.generate_num_starter_namespace.c"
-#include "../namespaces/maktub/fdefine.maktub_starter_names.c"
+#include "../namespaces/maktub/fdefine.maktub.c"
 #endif

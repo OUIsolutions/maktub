@@ -79,19 +79,16 @@ int main(){
    chash = newCHashNamespace();
    dtw = newDtwNamespace();
    dtw.remove_any("jsons_teses");
-   MakTub *maktube_obj = mak.newMakTub("teste qualqfffewjiejwiejiwjewifus");
+   MakTub *maktube_obj = mak.newMakTub("teste qualqfffewjejwijiwjews");
    int tota_creation = 0;
    for(int i = 0; i < 1000; i++){
-       int created = cria_json(maktube_obj);
-       mak.aply_seed_modification(maktube_obj,(int[]){0,2,5,6,7,5},6,"0123456789");
-       if(created){
-           tota_creation+=1;
-       }
-       if(tota_creation >400){
-           break;
+       tota_creation+=cria_json(maktube_obj);
+       mak.aply_seed_modification(maktube_obj,(int[]){0,1,2,3},4,"0123456789");
+       if(tota_creation > 100){
+           break;;
        }
    }
-   printf("%d\n",tota_creation);
+  printf("%d\n",tota_creation);
    mak.free(maktube_obj);
   return 0;
 

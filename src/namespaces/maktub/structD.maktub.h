@@ -11,7 +11,7 @@ typedef struct MakTubNameskace{
     void (*set_seed)(MakTub *self,const char *seed,...);
     void (*aply_seed_modification)(MakTub *self,int points[], int point_sizes,const char *valid_chars);
     MakTub * (*newMakTub)(const char *seed,...);
-    int  (*generate_num)(MakTub *self,  int min,  int  max);
+    long long   (*generate_num)(MakTub *self,  long long  min,  long long   max);
     MaktubGenerationNum * (*newGenerationNum)(MakTub *self);
     MakTubeGenerationAction * (*newGenerationAction)(MakTub *self);
     void * (*generate_choice)(MakTub *self,void **elements,int elements_size);

@@ -17,6 +17,7 @@ long long MakTube_generate_random_num_based_on_seed(
         result *= MAKTUBE_FACTOR;
     }
     result = result % MAKTUB_MAX_SEED;
+    max+=1;
     max -= min;
     result = result % max;
     result+=min;

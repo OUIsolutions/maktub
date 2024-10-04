@@ -19,7 +19,7 @@ void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list
 
 void MakTub_set_seed(MakTub *self,const char *seed,...);
 
-int  Maktub_generate_num(MakTub *self,  int min,  int  max);
+long long   Maktub_generate_num(MakTub *self,  long long  min, long long   max);
 
 MaktubGenerationNum * MakTub_newGenerationNum(MakTub *self);
 
