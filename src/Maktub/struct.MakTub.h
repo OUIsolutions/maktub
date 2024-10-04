@@ -8,7 +8,7 @@
 typedef struct MakTub
 {
     char *seed;
-   unsigned long long   num_seed;
+   unsigned int   num_seed;
    UniversalGarbage *garbage;
    bool started;
 

@@ -2,7 +2,6 @@
 //silver_chain_scope_start
 //mannaged by silver chain
 #include "../imports/imports.fdeclare.h"
-#include <string.h>
 //silver_chain_scope_end
 
 
@@ -74,13 +73,20 @@ void private_MakTub_generate_num_seed(MakTub *self){
 
     unsigned long str_size  = strlen(self->seed);
 
+
     for(unsigned long i = 0; i < str_size-3;i++ ){
-        self->num_seed +=
-            (unsigned char)self->seed[i] *
-            (unsigned char)self->seed[i+1] *
-            (unsigned char)self->seed[i+2];
+        self->num_seed *= (unsigned int)self->seed[i];
+
+        while (self->num_seed > 100000000) {
+            self->num_seed /= 1.1;
+        }
+        while (self->num_seed < 1000000) {
+            self->num_seed *= 1.5;
+        }
+
+
     }
-    printf("%lld\n",self->num_seed);
+    printf("%d\n",self->num_seed);
 }
 
 
@@ -103,7 +109,7 @@ int  Maktub_generate_num(MakTub *self,  int min,  int  max){
     min-=1;
     self->generation+=1;
     private_MakTub_generate_num_seed(self);
-    srand(self->num_seed *self->generation);
+    srand(self->num_seed + self->generation);
 
     if(min>=0){
         max -=min;
