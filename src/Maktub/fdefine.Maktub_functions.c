@@ -38,6 +38,7 @@ void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list
     va_end(args_copy);
 }
 void  MakTub_set_generation(MakTub *self,int generation){
+    private_MakTub_generate_num_seed(self);
     self->generation =generation;
 }
 
