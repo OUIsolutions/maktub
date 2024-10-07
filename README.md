@@ -6,7 +6,7 @@ pseudo random usage
 
 ## Install
 These lib its designed to be as dumb as possible,for usage just download the
-[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.002/MakTub.h) int your project and include it directly into your main
+[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.003/MakTub.h) int your project and include it directly into your main
 
 ```c
 #include "MakTub.h"
