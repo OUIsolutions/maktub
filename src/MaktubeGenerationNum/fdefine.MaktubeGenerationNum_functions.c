@@ -15,11 +15,12 @@ MaktubGenerationNum * private_new_MaktubGenerationNum(MakTub *Maktub_obj){
 
 int MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance){
     if(self->size_chanches >=  MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA){
-        return MAKTUB_MAX_CHANCES;
+        return -1;
     }
     self->chances[self->size_chanches] = chance;
+    int position = self->size_chanches;
     self->size_chanches+=1;
-    return 0;
+    return position;
 }
 void private_MaktubGenerationNum_generate_prediction(MaktubGenerationNum *self){
     double total_sum =0;

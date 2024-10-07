@@ -6,7 +6,7 @@ pseudo random usage
 
 ## Install
 These lib its designed to be as dumb as possible,for usage just download the
-[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.001/MakTub.h) int your project and include it directly into your main
+[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.002/MakTub.h) int your project and include it directly into your main
 
 ```c
 #include "MakTub.h"
@@ -185,6 +185,49 @@ int main(){
   if(!you_play_minecraft){
       printf("you dont play minecraft\n");
   }
+  mak.free(obj);
+  return 0;
+}
+
+~~~
+
+if you prever a more **safer aproach**  you can use like these
+
+~~~c
+
+
+
+/*
+It is also possible to generate pseudo randomness in lists.
+*/
+
+#include "MakTub.h"
+
+MakTubNamespace mak;
+
+int main(){
+  mak = newMakTubNameskace();
+
+  MakTub * obj = mak.newMakTub("your seed here");
+
+  MaktubGenerationNum *nuns = mak.newGenerationNum(obj);
+  int first  = mak.num.add_probability(nuns,0.33);
+  int second = mak.num.add_probability(nuns,0.33);
+  int third = mak.num.add_probability(nuns,0.33);
+  int result = mak.num.perform(nuns);
+  if(result == first){
+      printf("got first\n");
+  }
+  else if(result == second){
+      printf("got second");
+  }
+  else if(result == third){
+      printf("got third");
+  }
+  else {
+      printf("got none\n");
+  }
+
   mak.free(obj);
   return 0;
 }
@@ -402,65 +445,5 @@ int main(){
 
 ### Finding many seeds
 if you need you can find many seeds at once with string arrays
-
-
-
-~~~c
-#include "MakTub.h"
-
-MakTubNamespace mak;
-
-
-void *blue_print_generator(MakTub *self){
-    char *nation[] = {"Brazilian","American","Portuguese"};
-    char *chosen_nation = Maktub_generate_choice(self,(void**)nation,sizeof(nation)/sizeof(char*));
-    short chose_age = Maktub_generate_num(self,1, 120);
-    char *sentence = (char*)calloc(1000, sizeof(char));
-    sprintf(sentence,"I am %s and i am %d years old",chosen_nation,chose_age);
-    return sentence;
-}
-
-bool sentence_validator(MakTub *self,void *result){
-    char *formatted = (char*)result;
-    const char *TARGET = "I am Brazilian and i am 27 years old";
-    return strcmp(formatted, TARGET) == 0;
-}
-
-int main(){
-
-    // 8
-   mak =newMakTubNameskace();
-
-   mak = newMakTubNameskace();
-
-   MakTub *maktube_obj = mak.newMakTub("eai parsa suave ");
-
-   int POSITION_TO_MODIFY[] = {0,1,2,3};
-   int POSITION_SIZE = sizeof(POSITION_TO_MODIFY)/sizeof(int);
-   int MAX_TRY = 10000;
-   int MAX_ITENS = 10;
-
-   MakTubeStringArray *itens = mak.aply_seed_modification_returning_string_array(
-          maktube_obj,
-          POSITION_TO_MODIFY,
-          POSITION_SIZE,
-          mak.seqs.allpha_nuns,
-          blue_print_generator,
-          sentence_validator,
-          free,
-          MAX_TRY,
-          MAX_ITENS
-    );
-    for(int i =0; i < itens->size;i++){
-        printf("seed: '%s'\n",mak.string_array.get_str(itens,i));
-    }
-
-    mak.free(maktube_obj);
-
-    return 0;
-
-}
-
-~~~
 
 

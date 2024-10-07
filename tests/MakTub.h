@@ -657,6 +657,7 @@ typedef struct MakTubSequencialsNamespace {
 typedef struct MakTubNamespace{
 
      char *(*get_seed)(MakTub *self);
+    int (*get_generation)(MakTub *self);
     void(*set_generation)(MakTub *self,int generation);
     void (*set_seed)(MakTub *self,const char *seed,...);
     void (*aply_seed_modification)(MakTub *self,int points[], int point_sizes,const char *valid_chars);
@@ -741,6 +742,8 @@ void private_free_MakTubeGenerationAction(MakTubeGenerationAction *self);
 MakTub * newMakTub(const char *seed,...);
 
 void MakTub_set_generation(MakTub *self,int generation);
+
+int MakTub_get_generation(MakTub *self);
 
 void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars);
 
@@ -976,7 +979,9 @@ MakTub * newMakTub(const char *seed,...){
 char * MakTub_get_seed(MakTub *self){
     return  self->seed;
 }
-
+int MakTub_get_generation(MakTub *self){
+    return self->generation;
+}
 void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
     self->started = false;
 
@@ -1175,11 +1180,12 @@ MaktubGenerationNum * private_new_MaktubGenerationNum(MakTub *Maktub_obj){
 
 int MaktubGenerationNum_add_probability(MaktubGenerationNum *self,double chance){
     if(self->size_chanches >=  MAKTUB_DEFAULT_GENERATION_PLOTAGE_AREA){
-        return MAKTUB_MAX_CHANCES;
+        return -1;
     }
     self->chances[self->size_chanches] = chance;
+    int position = self->size_chanches;
     self->size_chanches+=1;
-    return 0;
+    return position;
 }
 void private_MaktubGenerationNum_generate_prediction(MaktubGenerationNum *self){
     double total_sum =0;
@@ -1370,7 +1376,7 @@ GenerationNumNamespace newGenerationNumNamespace(){
 
 MakTubNamespace newMakTubNameskace(){
     MakTubNamespace self = {0};
-
+    self.get_generation = MakTub_get_generation;
     self.newMakTub=  newMakTub;
     self.get_seed = MakTub_get_seed;
 

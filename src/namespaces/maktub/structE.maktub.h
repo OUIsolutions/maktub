@@ -7,6 +7,7 @@
 typedef struct MakTubNamespace{
 
      char *(*get_seed)(MakTub *self);
+    int (*get_generation)(MakTub *self);
     void(*set_generation)(MakTub *self,int generation);
     void (*set_seed)(MakTub *self,const char *seed,...);
     void (*aply_seed_modification)(MakTub *self,int points[], int point_sizes,const char *valid_chars);

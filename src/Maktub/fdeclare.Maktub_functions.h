@@ -10,6 +10,8 @@ MakTub * newMakTub(const char *seed,...);
 
 void MakTub_set_generation(MakTub *self,int generation);
 
+int MakTub_get_generation(MakTub *self);
+
 void MakTub_aply_seed_modification(MakTub *self,int points[], int point_sizes,const char *valid_chars);
 
 

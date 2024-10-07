@@ -23,7 +23,9 @@ MakTub * newMakTub(const char *seed,...){
 char * MakTub_get_seed(MakTub *self){
     return  self->seed;
 }
-
+int MakTub_get_generation(MakTub *self){
+    return self->generation;
+}
 void private_Maktube_set_seed_by_vaarg(MakTub *self,const char *seed_fmt,va_list args){
     self->started = false;
 

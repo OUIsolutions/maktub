@@ -6,7 +6,7 @@
 
 MakTubNamespace newMakTubNameskace(){
     MakTubNamespace self = {0};
-
+    self.get_generation = MakTub_get_generation;
     self.newMakTub=  newMakTub;
     self.get_seed = MakTub_get_seed;
 

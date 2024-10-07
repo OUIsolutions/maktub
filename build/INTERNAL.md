@@ -6,7 +6,7 @@ pseudo random usage
 
 ## Install
 These lib its designed to be as dumb as possible,for usage just download the
-[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.002/MakTub.h) int your project and include it directly into your main
+[Amalgamation File](https://github.com/OUIsolutions/maktub/releases/download/v0.003/MakTub.h) int your project and include it directly into your main
 
 ```c
 #include "MakTub.h"
@@ -63,6 +63,9 @@ codeof:exemples/num_generation_basic.c
 its also possible to use it at a boolean strategy
 codeof:exemples/num_generation_bool.c
 
+if you prever a more **safer aproach**  you can use like these
+codeof:exemples/num_generation_assing.c
+
 ## Callbacks
 you can determine a callback to be executed on each probability
 
@@ -92,6 +95,3 @@ if you need you can find many seeds at once with string arrays
 
 
 codeof:exemples/finding_string_array.c
-
-
-
