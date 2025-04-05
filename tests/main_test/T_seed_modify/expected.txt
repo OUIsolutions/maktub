@@ -1,4 +1,0 @@
-seed = your seed here
-first =56
-seed = qp9r seed here
-second = 13
