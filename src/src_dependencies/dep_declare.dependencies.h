@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <stdarg.h>a
+#include <stdarg.h>
 
 #if !defined(UniversalGarbage_fdeclare) && !defined(MAKTUB_MOCK_UNIVERSAL_GARBAGE)
 #include "../../dependencies/UniversalGarbage.h"
