@@ -1,6 +1,6 @@
-#include "imports.fdeclare.h"
-#ifndef maktub_fdefine
-#define maktub_fdefine
+#include "imports.dep_define.h"
+#ifndef Maktub_fdefine
+#define Maktub_fdefine
 #include "../MakTubeGenerationAction/fdefine.MakTubeGenerationAction_functions.c"
 #include "../Maktub/fdefine.Maktub_functions.c"
 #include "../MaktubeGenerationNum/fdefine.MaktubeGenerationNum_functions.c"

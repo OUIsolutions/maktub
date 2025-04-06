@@ -1,6 +1,6 @@
-#include "imports.dependency.h"
-#ifndef maktub_consts
-#define maktub_consts
+#include "imports.typesE.h"
+#ifndef Maktub_consts
+#define Maktub_consts
 #include "../consts/consts.algo.h"
 #include "../consts/consts.defaults.h"
 #include "../consts/consts.errors.h"

@@ -1,7 +1,9 @@
 
 //silver_chain_scope_start
-//mannaged by silver chain
-#include "../../imports/imports.structC.h"
+//DONT MODIFY THIS COMMENT
+//this import is computationally generated
+//mannaged by SilverChain: https://github.com/OUIsolutions/SilverChain
+#include "../../imports/imports.typesC.h"
 //silver_chain_scope_end
 
 typedef struct MakTubSequencialsNamespace {
