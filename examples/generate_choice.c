@@ -5,7 +5,7 @@
 It is also possible to generate pseudo randomness in lists.
 */
 
-#include "MakTubOne.c"
+#include "MaktubOne.c"
 
 MakTubNamespace mak;
 
