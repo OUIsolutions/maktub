@@ -1,4 +1,3 @@
-
 ## Maktub
 Maktub its a pseudo randon generative library designed to generate
 theorem tests, procedural objects constructions and anything that you need
@@ -28,5 +27,14 @@ int main(){
     mak.free(obj);
     return 0;
 }
-
 ~~~
+
+## Documentation
+| Item | Description |
+|------|-------------|
+|[build_and_install.md](/docs/build_and_install.md)| Instructions on how to build and install Maktub|
+|[generating_tokens.md](/docs/generating_tokens.md)| Guide on generating tokens|
+|[choice.md](/docs/choice.md)| Explanation of the choice function|
+|[probabilities.md](/docs/probabilities.md)| Understanding probabilities in Maktub|
+|[callbacks.md](/docs/callbacks.md)| Usage of callbacks|
+|[seed_control.md](/docs/seed_control.md)| Controlling seed values|
