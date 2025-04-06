@@ -5,7 +5,7 @@ generation ,where you can modify and controll it
 
 
 ~~~c
-#include "MakTub.h"
+#include "MaktubOne.c"
 MakTubNamespace mak;
 
 int main(){
@@ -27,7 +27,7 @@ you can make small seed modifications to test varios hipoteses
 
 
 ~~~c
-#include "MakTub.h"
+#include "MaktubOne.c"
 MakTubNamespace mak;
 
 int main(){
@@ -50,7 +50,7 @@ int main(){
 you can find seed based on lambda blueprints and verifiers
 
 ~~~c
-#include "MakTub.h"
+#include "MaktubOne.c"
 
 MakTubNamespace mak;
 

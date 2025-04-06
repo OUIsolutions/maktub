@@ -10,7 +10,7 @@ you also can generate tokens of diferent sizes of diferent chars
 With MakTup you can generate tokens through seeds, choosing the number of characters and which characters are accepted.
 */
 
-#include "MakTub.h"
+#include "MaktubOne.c"
 
 MakTubNamespace mak;
 

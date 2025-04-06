@@ -7,7 +7,7 @@ you can determine a callback to be executed on each probability
 ~~~c
 
 
-#include "MakTub.h"
+#include "MaktubOne.c"
 MakTubNamespace mak;
 
 
@@ -54,7 +54,7 @@ int main(){
 It also defines the probability percentage of executing something with: "subscribe_function"
 */
 
-#include "MakTub.h"
+#include "MaktubOne.c"
 MakTubNamespace mak;
 
 void print_nil(MakTub *self){

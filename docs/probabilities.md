@@ -4,7 +4,7 @@ you can set probabilities for for switching elements
 
 ~~~c
 
-#include "MakTub.h"
+#include "MaktubOne.c"
 
 MakTubNamespace mak;
 
@@ -31,7 +31,7 @@ its also possible to use it at a boolean strategy
 
 ~~~c
 
-#include "MakTub.h"
+#include "MaktubOne.c"
 
 MakTubNamespace mak;
 
@@ -61,7 +61,7 @@ if you prever a more **safer aproach**  you can use like these
 
 ~~~c
 
-#include "MakTub.h"
+#include "MaktubOne.c"
 
 MakTubNamespace mak;
 

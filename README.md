@@ -10,7 +10,7 @@ these above example generates a simple rand number betwen  0 and 100
 
 
 ~~~c
-#include "MakTub.h"
+#include "MaktubOne.c"
 MakTubNamespace mak;
 
 int main(){
